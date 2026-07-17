@@ -13,16 +13,22 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package edu.cnm.deepdive.myproject.server;
+package edu.cnm.deepdive.coffeeshop;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import android.app.Application;
+import dagger.hilt.android.HiltAndroidApp;
 
-@SpringBootTest
-class ServerApplicationTests {
+/**
+ * Initializes (in the {@link #onCreate()} method) application-level resources that cannot be
+ * handled with Hilt dependency injection. This class <strong>must</strong> be referenced in
+ * {@code AndroidManifest.xml}, or it will not be loaded and used by the Android system.
+ */
+@HiltAndroidApp
+public class MyProjectApplication extends Application { // TODO Rename this class as aappropriate.
 
-  @Test
-  void contextLoads() {
+  @Override
+  public void onCreate() {
+    super.onCreate();
   }
 
 }

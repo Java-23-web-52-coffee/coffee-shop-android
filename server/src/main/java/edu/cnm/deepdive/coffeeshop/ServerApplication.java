@@ -13,22 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package edu.cnm.deepdive.myproject;
+package edu.cnm.deepdive.coffeeshop;
 
-import android.app.Application;
-import dagger.hilt.android.HiltAndroidApp;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * Initializes (in the {@link #onCreate()} method) application-level resources that cannot be
- * handled with Hilt dependency injection. This class <strong>must</strong> be referenced in
- * {@code AndroidManifest.xml}, or it will not be loaded and used by the Android system.
- */
-@HiltAndroidApp
-public class MyProjectApplication extends Application { // TODO Rename this class as aappropriate.
+@SpringBootApplication
+public class ServerApplication {
 
-  @Override
-  public void onCreate() {
-    super.onCreate();
+  public static void main(String[] args) {
+    SpringApplication.run(ServerApplication.class, args);
   }
 
 }
