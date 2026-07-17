@@ -4,8 +4,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -36,6 +39,12 @@ public class Shop {
 
   @Column(name = "image_url", length = 255)
   private String imageUrl;
+
+  @OneToMany(mappedBy = "shop")
+  private Set<Visit> visits = new LinkedHashSet<>();
+
+  @OneToMany(mappedBy = "shop")
+  private Set<Favorite> favorites = new LinkedHashSet<>();
 
   public UUID getId() {
     return id;
@@ -99,5 +108,21 @@ public class Shop {
 
   public void setImageUrl(String imageUrl) {
     this.imageUrl = imageUrl;
+  }
+
+  public Set<Visit> getVisits() {
+    return visits;
+  }
+
+  public void setVisits(Set<Visit> visits) {
+    this.visits = visits;
+  }
+
+  public Set<Favorite> getFavorites() {
+    return favorites;
+  }
+
+  public void setFavorites(Set<Favorite> favorites) {
+    this.favorites = favorites;
   }
 }

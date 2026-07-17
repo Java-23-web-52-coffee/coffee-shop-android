@@ -7,8 +7,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.OffsetDateTime;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -29,6 +32,9 @@ public class Visit {
 
   @Column(name = "created_at")
   private OffsetDateTime createdAt;
+
+  @OneToMany(mappedBy = "visit")
+  private Set<Rating> ratings = new LinkedHashSet<>();
 
   public UUID getId() {
     return id;
@@ -60,5 +66,13 @@ public class Visit {
 
   public void setCreatedAt(OffsetDateTime createdAt) {
     this.createdAt = createdAt;
+  }
+
+  public Set<Rating> getRatings() {
+    return ratings;
+  }
+
+  public void setRatings(Set<Rating> ratings) {
+    this.ratings = ratings;
   }
 }
