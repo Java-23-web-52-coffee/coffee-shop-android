@@ -2,9 +2,11 @@ package edu.cnm.deepdive.coffeeshop.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -30,13 +32,14 @@ public class Profile {
   @Column(name = "password_hash", nullable = false, length = 97, columnDefinition = "char(97)")
   private String passwordHash;
 
-  @OneToMany(mappedBy = "profile")
+  @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY)
+  @OrderBy("createdAt desc")
   private Set<Visit> visits = new LinkedHashSet<>();
 
-  @OneToMany(mappedBy = "profile")
+  @OneToMany(mappedBy = "profile", fetch = FetchType.EAGER)
   private Set<Favorite> favorites = new LinkedHashSet<>();
 
-  @OneToMany(mappedBy = "profile")
+  @OneToMany(mappedBy = "profile", fetch = FetchType.EAGER)
   private Set<Preference> preferences = new LinkedHashSet<>();
 
   public UUID getId() {

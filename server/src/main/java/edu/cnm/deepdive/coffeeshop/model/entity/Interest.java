@@ -2,6 +2,7 @@ package edu.cnm.deepdive.coffeeshop.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -21,10 +22,10 @@ public class Interest {
   @Column(length = 127)
   private String category;
 
-  @OneToMany(mappedBy = "interest")
+  @OneToMany(mappedBy = "interest", fetch = FetchType.LAZY)
   private Set<Preference> preferences = new LinkedHashSet<>();
 
-  @OneToMany(mappedBy = "interest")
+  @OneToMany(mappedBy = "interest", fetch = FetchType.LAZY)
   private Set<Rating> ratings = new LinkedHashSet<>();
 
   public UUID getId() {

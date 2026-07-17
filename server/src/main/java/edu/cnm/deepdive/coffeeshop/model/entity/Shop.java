@@ -2,6 +2,7 @@ package edu.cnm.deepdive.coffeeshop.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -40,10 +41,10 @@ public class Shop {
   @Column(name = "image_url", length = 255)
   private String imageUrl;
 
-  @OneToMany(mappedBy = "shop")
+  @OneToMany(mappedBy = "shop", fetch = FetchType.LAZY)
   private Set<Visit> visits = new LinkedHashSet<>();
 
-  @OneToMany(mappedBy = "shop")
+  @OneToMany(mappedBy = "shop", fetch = FetchType.LAZY)
   private Set<Favorite> favorites = new LinkedHashSet<>();
 
   public UUID getId() {
