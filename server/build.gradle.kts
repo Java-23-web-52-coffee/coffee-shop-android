@@ -51,7 +51,8 @@ dependencies {
 
     developmentOnly(libs.spring.boot.devtools)
 
-    runtimeOnly(libs.h2)
+//    runtimeOnly(libs.h2)
+    runtimeOnly("org.postgresql:postgresql")
 
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.spring.boot.starter.webmvc.test)
