@@ -9,6 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "rating")
@@ -60,5 +61,23 @@ public class Rating {
 
   public void setValue(BigDecimal value) {
     this.value = value;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    return obj instanceof Rating other && id != null && Objects.equals(id, other.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Rating.class.hashCode();
+  }
+
+  @Override
+  public String toString() {
+    return "Rating{id=" + id + ", value=" + value + "}";
   }
 }

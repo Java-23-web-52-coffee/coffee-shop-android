@@ -11,6 +11,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.OffsetDateTime;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -74,5 +75,23 @@ public class Visit {
 
   public void setRatings(Set<Rating> ratings) {
     this.ratings = ratings;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    return obj instanceof Visit other && id != null && Objects.equals(id, other.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Visit.class.hashCode();
+  }
+
+  @Override
+  public String toString() {
+    return "Visit{id=" + id + ", createdAt=" + createdAt + "}";
   }
 }

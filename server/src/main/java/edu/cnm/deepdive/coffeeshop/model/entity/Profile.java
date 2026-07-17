@@ -9,6 +9,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -104,5 +105,23 @@ public class Profile {
 
   public void setPreferences(Set<Preference> preferences) {
     this.preferences = preferences;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    return obj instanceof Profile other && id != null && Objects.equals(id, other.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Profile.class.hashCode();
+  }
+
+  @Override
+  public String toString() {
+    return "Profile{id=" + id + ", email='" + email + "', name='" + name + "'}";
   }
 }

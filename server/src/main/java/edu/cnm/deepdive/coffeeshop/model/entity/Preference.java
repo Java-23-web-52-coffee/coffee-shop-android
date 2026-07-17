@@ -9,6 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "preference")
@@ -60,5 +61,23 @@ public class Preference {
 
   public void setImportance(BigDecimal importance) {
     this.importance = importance;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    return obj instanceof Preference other && id != null && Objects.equals(id, other.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Preference.class.hashCode();
+  }
+
+  @Override
+  public String toString() {
+    return "Preference{id=" + id + ", importance=" + importance + "}";
   }
 }

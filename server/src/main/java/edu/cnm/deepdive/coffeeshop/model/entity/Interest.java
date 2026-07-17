@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -58,5 +59,23 @@ public class Interest {
 
   public void setRatings(Set<Rating> ratings) {
     this.ratings = ratings;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    return obj instanceof Interest other && id != null && Objects.equals(id, other.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Interest.class.hashCode();
+  }
+
+  @Override
+  public String toString() {
+    return "Interest{id=" + id + ", category='" + category + "'}";
   }
 }

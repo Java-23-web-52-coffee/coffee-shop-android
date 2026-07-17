@@ -7,6 +7,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "favorite")
@@ -47,5 +48,23 @@ public class Favorite {
 
   public void setShop(Shop shop) {
     this.shop = shop;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    return obj instanceof Favorite other && id != null && Objects.equals(id, other.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Favorite.class.hashCode();
+  }
+
+  @Override
+  public String toString() {
+    return "Favorite{id=" + id + "}";
   }
 }

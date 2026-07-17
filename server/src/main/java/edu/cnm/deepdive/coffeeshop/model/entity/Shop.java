@@ -9,6 +9,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -125,5 +126,23 @@ public class Shop {
 
   public void setFavorites(Set<Favorite> favorites) {
     this.favorites = favorites;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    return obj instanceof Shop other && id != null && Objects.equals(id, other.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Shop.class.hashCode();
+  }
+
+  @Override
+  public String toString() {
+    return "Shop{id=" + id + ", name='" + name + "', address='" + address + "'}";
   }
 }
