@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: ${rootProjectName}-server
+
+  datasource:
+    url: "jdbc:postgresql://capstone-do-user-4787316-0.j.db.ondigitalocean.com:25060/coffee2352"
+
+  profiles:
+    active:
+      - local
