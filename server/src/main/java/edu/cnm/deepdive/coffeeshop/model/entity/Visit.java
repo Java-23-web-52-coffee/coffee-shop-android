@@ -14,6 +14,7 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import org.hibernate.Hibernate;
 
 @Entity
 @Table(name = "visit")
@@ -82,12 +83,16 @@ public class Visit {
     if (this == obj) {
       return true;
     }
-    return obj instanceof Visit other && id != null && Objects.equals(id, other.id);
+    if (obj == null || Hibernate.getClass(this) != Hibernate.getClass(obj)) {
+      return false;
+    }
+    Visit other = (Visit) obj;
+    return id != null && Objects.equals(id, other.id);
   }
 
   @Override
   public int hashCode() {
-    return Visit.class.hashCode();
+    return Hibernate.getClass(this).hashCode();
   }
 
   @Override

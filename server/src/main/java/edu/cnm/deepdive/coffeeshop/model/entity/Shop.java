@@ -12,6 +12,7 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import org.hibernate.Hibernate;
 
 @Entity
 @Table(name = "shop")
@@ -133,12 +134,16 @@ public class Shop {
     if (this == obj) {
       return true;
     }
-    return obj instanceof Shop other && id != null && Objects.equals(id, other.id);
+    if (obj == null || Hibernate.getClass(this) != Hibernate.getClass(obj)) {
+      return false;
+    }
+    Shop other = (Shop) obj;
+    return id != null && Objects.equals(id, other.id);
   }
 
   @Override
   public int hashCode() {
-    return Shop.class.hashCode();
+    return Hibernate.getClass(this).hashCode();
   }
 
   @Override

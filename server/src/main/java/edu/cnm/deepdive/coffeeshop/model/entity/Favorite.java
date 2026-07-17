@@ -8,6 +8,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import java.util.Objects;
+import org.hibernate.Hibernate;
 
 @Entity
 @Table(name = "favorite")
@@ -55,12 +56,16 @@ public class Favorite {
     if (this == obj) {
       return true;
     }
-    return obj instanceof Favorite other && id != null && Objects.equals(id, other.id);
+    if (obj == null || Hibernate.getClass(this) != Hibernate.getClass(obj)) {
+      return false;
+    }
+    Favorite other = (Favorite) obj;
+    return id != null && Objects.equals(id, other.id);
   }
 
   @Override
   public int hashCode() {
-    return Favorite.class.hashCode();
+    return Hibernate.getClass(this).hashCode();
   }
 
   @Override

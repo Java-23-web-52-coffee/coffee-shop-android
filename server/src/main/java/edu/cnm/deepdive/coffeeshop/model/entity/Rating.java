@@ -10,6 +10,7 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Objects;
+import org.hibernate.Hibernate;
 
 @Entity
 @Table(name = "rating")
@@ -68,12 +69,16 @@ public class Rating {
     if (this == obj) {
       return true;
     }
-    return obj instanceof Rating other && id != null && Objects.equals(id, other.id);
+    if (obj == null || Hibernate.getClass(this) != Hibernate.getClass(obj)) {
+      return false;
+    }
+    Rating other = (Rating) obj;
+    return id != null && Objects.equals(id, other.id);
   }
 
   @Override
   public int hashCode() {
-    return Rating.class.hashCode();
+    return Hibernate.getClass(this).hashCode();
   }
 
   @Override

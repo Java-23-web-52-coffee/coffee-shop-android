@@ -10,6 +10,7 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Objects;
+import org.hibernate.Hibernate;
 
 @Entity
 @Table(name = "preference")
@@ -68,12 +69,16 @@ public class Preference {
     if (this == obj) {
       return true;
     }
-    return obj instanceof Preference other && id != null && Objects.equals(id, other.id);
+    if (obj == null || Hibernate.getClass(this) != Hibernate.getClass(obj)) {
+      return false;
+    }
+    Preference other = (Preference) obj;
+    return id != null && Objects.equals(id, other.id);
   }
 
   @Override
   public int hashCode() {
-    return Preference.class.hashCode();
+    return Hibernate.getClass(this).hashCode();
   }
 
   @Override
