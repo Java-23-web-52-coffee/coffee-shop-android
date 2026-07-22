@@ -11,6 +11,10 @@ import retrofit2.http.Path;
 
 public interface CoffeeShopService {
 
+  static CoffeeShopService getInstance() {
+    return null;
+  }
+
   @GET("shops")
   Call<List<Shop>> getShops();
 
