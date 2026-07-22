@@ -3,8 +3,22 @@ spring:
     name: ${rootProjectName}-server
 
   datasource:
-    url: "jdbc:postgresql://capstone-do-user-4787316-0.j.db.ondigitalocean.com:25060/coffee2352"
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+
+  flyway:
+    enabled: ${FLYWAY_ENABLED:false}
 
   profiles:
     active:
       - local
+
+server:
+  error:
+    include-message: never

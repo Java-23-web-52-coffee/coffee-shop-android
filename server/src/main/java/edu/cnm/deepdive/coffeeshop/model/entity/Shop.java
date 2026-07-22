@@ -49,6 +49,9 @@ public class Shop {
   @OneToMany(mappedBy = "shop", fetch = FetchType.LAZY)
   private Set<Favorite> favorites = new LinkedHashSet<>();
 
+  @OneToMany(mappedBy = "shop", fetch = FetchType.LAZY)
+  private Set<Review> reviews = new LinkedHashSet<>();
+
   public UUID getId() {
     return id;
   }
@@ -127,6 +130,14 @@ public class Shop {
 
   public void setFavorites(Set<Favorite> favorites) {
     this.favorites = favorites;
+  }
+
+  public Set<Review> getReviews() {
+    return reviews;
+  }
+
+  public void setReviews(Set<Review> reviews) {
+    this.reviews = reviews;
   }
 
   @Override

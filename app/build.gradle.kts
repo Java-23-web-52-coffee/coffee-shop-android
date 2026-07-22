@@ -141,9 +141,9 @@ dependencies {
     // implementation(libs.gson)
 
     // Moshi (Square JSON parser) library
-    // implementation(libs.moshi.core)
-    // implementation(libs.moshi.kotlin)
-    // implementation(libs.moshi.kotlin.codegen)
+    implementation(libs.moshi.core)
+    implementation(libs.moshi.kotlin)
+    ksp(libs.moshi.kotlin.codegen)
     // implementation(libs.moshi.adapters)
 
     // Android/Google authentication libraries
@@ -153,16 +153,16 @@ dependencies {
     // implementation(libs.googleid)
 
     // Retrofit (REST client) with Gson & RxJava integration
-    // implementation(libs.retrofit.core)
+    implementation(libs.retrofit.core)
     // implementation(libs.retrofit.converter.gson)
-    // implementation(libs.retrofit.converter.moshi)
+    implementation(libs.retrofit.converter.moshi)
     // implementation(libs.retrofit.adapter.rx.java)
     // implementation(libs.retrofit.adapter.java8)
 
     // OkHttp core & logging libraries
     // implementation(libs.okio)
-    // implementation(libs.okhttp)
-    // implementation(libs.logging.interceptor)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 
     // Libraries for JVM-based testing.
     testImplementation(libs.junit.api)

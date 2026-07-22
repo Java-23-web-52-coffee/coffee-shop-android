@@ -24,6 +24,7 @@ plugins {
     alias(libs.plugins.spring.boot).apply(false)
     alias(libs.plugins.spring.dependency).apply(false)
     alias(libs.plugins.dokka).apply(false)
+    alias(libs.plugins.openapi).apply(false)
     alias(libs.plugins.schema.parser).apply(false)
     alias(libs.plugins.junit).apply(false)
 }

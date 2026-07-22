@@ -22,6 +22,7 @@ plugins {
     alias(libs.plugins.kotlin.jpa)
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.dependency)
+    alias(libs.plugins.openapi)
 }
 
 group = project.property("basePackageName") as String
@@ -41,6 +42,9 @@ kotlin {
 
 dependencies {
 
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
     implementation(libs.kotlin.reflect)
     implementation(libs.jackson.kotlin)
 
@@ -48,15 +52,72 @@ dependencies {
     implementation(libs.spring.boot.starter.validation)
     implementation(libs.spring.boot.starter.actuator)
     implementation(libs.spring.boot.starter.data.jpa)
+    implementation(libs.spring.boot.starter.security)
+    implementation(libs.flyway.core)
+    implementation(libs.flyway.database.postgresql)
+
+    compileOnly(libs.jakarta.annotation)
 
     developmentOnly(libs.spring.boot.devtools)
 
-//    runtimeOnly(libs.h2)
-    runtimeOnly("org.postgresql:postgresql")
+    runtimeOnly(libs.postgresql)
 
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.spring.boot.starter.webmvc.test)
+    testRuntimeOnly(libs.h2)
 
+}
+
+val openApiOutputDirectory = layout.buildDirectory.dir("generated/openapi")
+val openApiSpecification =
+    layout.projectDirectory.file("src/main/openapi/openapi.yaml").asFile.absolutePath
+
+openApiGenerate {
+    generatorName.set("spring")
+    inputSpec.set(openApiSpecification)
+    outputDir.set(openApiOutputDirectory.get().asFile.absolutePath)
+    apiPackage.set("${project.group}.controller.api")
+    modelPackage.set("${project.group}.model.dto")
+    invokerPackage.set("${project.group}.openapi")
+    configOptions.set(
+        mapOf(
+            "interfaceOnly" to "true",
+            "skipDefaultInterface" to "true",
+            "useSpringBoot3" to "true",
+            "useJakartaEe" to "true",
+            "useTags" to "true",
+            "dateLibrary" to "java8",
+            "documentationProvider" to "none",
+            "annotationLibrary" to "none",
+            "openApiNullable" to "false",
+            "hideGenerationTimestamp" to "true"
+        )
+    )
+    globalProperties.set(
+        mapOf(
+            "apis" to "",
+            "models" to "",
+            "supportingFiles" to "false"
+        )
+    )
+}
+
+openApiValidate {
+    inputSpec.set(openApiSpecification)
+}
+
+sourceSets {
+    main {
+        java.srcDir(openApiOutputDirectory.map { it.dir("src/main/java") })
+    }
+}
+
+tasks.named("compileJava") {
+    dependsOn(tasks.named("openApiGenerate"))
+}
+
+tasks.named("compileKotlin") {
+    dependsOn(tasks.named("openApiGenerate"))
 }
 
 tasks.withType<Test> {

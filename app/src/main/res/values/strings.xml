@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="display_name">Display name</string>
+  <string name="profile">Profile</string>
+  <string name="upload_profile_picture">Upload profile picture</string>
+  <string name="profile_picture">Profile picture</string>
+  <string name="save">Save</string>
+  <string name="sign_in_to_continue">Sign In</string>
+  <string name="coffee_shop">Coffee Shop\n</string>
+  <string name="email_address">Email address</string>
+  <string name="password">Password</string>
+  <string name="sign_in">Sign in</string>
+</resources>

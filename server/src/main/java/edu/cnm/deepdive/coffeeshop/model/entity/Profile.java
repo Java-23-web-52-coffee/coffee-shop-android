@@ -44,6 +44,10 @@ public class Profile {
   @OneToMany(mappedBy = "profile", fetch = FetchType.EAGER)
   private Set<Preference> preferences = new LinkedHashSet<>();
 
+  @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY)
+  @OrderBy("createdAt desc")
+  private Set<Review> reviews = new LinkedHashSet<>();
+
   public UUID getId() {
     return id;
   }
@@ -106,6 +110,14 @@ public class Profile {
 
   public void setPreferences(Set<Preference> preferences) {
     this.preferences = preferences;
+  }
+
+  public Set<Review> getReviews() {
+    return reviews;
+  }
+
+  public void setReviews(Set<Review> reviews) {
+    this.reviews = reviews;
   }
 
   @Override
