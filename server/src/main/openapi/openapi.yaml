@@ -1,0 +1,328 @@
+openapi: 3.0.3
+info:
+  title: Coffee Shop API
+  version: 1.0.0
+  description: API for browsing local coffee shops and publishing reviews.
+servers:
+  - url: /api/v1
+tags:
+  - name: Shops
+  - name: Reviews
+paths:
+  /shops:
+    get:
+      tags: [Shops]
+      operationId: listShops
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: A page of coffee shops.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShopPage'
+  /shops/{shopId}:
+    parameters:
+      - $ref: '#/components/parameters/ShopId'
+    get:
+      tags: [Shops]
+      operationId: getShop
+      responses:
+        '200':
+          description: Coffee shop details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShopDetails'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /shops/{shopId}/reviews:
+    parameters:
+      - $ref: '#/components/parameters/ShopId'
+    get:
+      tags: [Reviews]
+      operationId: listReviews
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: Reviews ordered from newest to oldest.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewPage'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      tags: [Reviews]
+      operationId: createReview
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReviewRequest'
+      responses:
+        '201':
+          description: Review created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          description: The current user has already reviewed this shop.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+  /shops/{shopId}/reviews/{reviewId}:
+    parameters:
+      - $ref: '#/components/parameters/ShopId'
+      - $ref: '#/components/parameters/ReviewId'
+    put:
+      tags: [Reviews]
+      operationId: updateReview
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReviewRequest'
+      responses:
+        '200':
+          description: Review updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags: [Reviews]
+      operationId: deleteReview
+      security:
+        - bearerAuth: []
+      responses:
+        '204':
+          description: Review deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    ShopId:
+      name: shopId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    ReviewId:
+      name: reviewId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Size:
+      name: size
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+  responses:
+    BadRequest:
+      description: Request validation failed.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetail'
+    Unauthorized:
+      description: Authentication is required.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetail'
+    Forbidden:
+      description: The current user does not own this review.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetail'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetail'
+  schemas:
+    ShopSummary:
+      type: object
+      required: [id, name, averageRating, reviewCount]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        address:
+          type: string
+        imageUrl:
+          type: string
+          format: uri
+        averageRating:
+          type: number
+          format: double
+          minimum: 1
+          maximum: 5
+        reviewCount:
+          type: integer
+          format: int64
+          minimum: 0
+    ShopDetails:
+      allOf:
+        - $ref: '#/components/schemas/ShopSummary'
+        - type: object
+          properties:
+            phone:
+              type: string
+            latitude:
+              type: number
+              format: double
+            longitude:
+              type: number
+              format: double
+            hours:
+              type: string
+    ShopPage:
+      type: object
+      required: [content, page, size, totalElements, totalPages]
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShopSummary'
+        page:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+    Review:
+      type: object
+      required: [id, shopId, author, rating, comment, createdAt, updatedAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+        shopId:
+          type: string
+          format: uuid
+        author:
+          $ref: '#/components/schemas/ReviewAuthor'
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        comment:
+          type: string
+          maxLength: 2000
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    ReviewAuthor:
+      type: object
+      required: [id, name]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    CreateReviewRequest:
+      type: object
+      required: [rating, comment]
+      properties:
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        comment:
+          type: string
+          minLength: 1
+          maxLength: 2000
+    UpdateReviewRequest:
+      allOf:
+        - $ref: '#/components/schemas/CreateReviewRequest'
+    ReviewPage:
+      type: object
+      required: [content, page, size, totalElements, totalPages]
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Review'
+        page:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+    ProblemDetail:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri
