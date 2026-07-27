@@ -1,11 +1,9 @@
 spring:
   application:
-    name: ${rootProjectName}-server
+    name: coffee-shop-server
 
   datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+    url: jdbc:postgresql://capstone-do-user-4787316-0.j.db.ondigitalocean.com:25060/coffee2352
 
   jpa:
     open-in-view: false

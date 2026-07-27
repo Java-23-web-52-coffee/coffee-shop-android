@@ -22,7 +22,7 @@ public class Profile {
   @GeneratedValue
   private UUID id;
 
-  @Column(name = "activation_token", length = 32, columnDefinition = "char(32)")
+  @Column(name = "activation_token", columnDefinition = "bpchar(32)")
   private String activationToken;
 
   @Column(nullable = false, unique = true, length = 127)
@@ -31,7 +31,7 @@ public class Profile {
   @Column(nullable = false, unique = true, length = 63)
   private String name;
 
-  @Column(name = "password_hash", nullable = false, length = 97, columnDefinition = "char(97)")
+  @Column(name = "password_hash", nullable = false, columnDefinition = "bpchar(97)")
   private String passwordHash;
 
   @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY)
