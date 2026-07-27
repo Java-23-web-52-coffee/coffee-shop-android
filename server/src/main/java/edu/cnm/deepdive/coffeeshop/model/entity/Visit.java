@@ -32,7 +32,7 @@ public class Visit {
   @JoinColumn(name = "profile_id", nullable = false)
   private Profile profile;
 
-  @Column(name = "created_at")
+  @Column(name = "created_at", nullable = false, updatable = false)
   private OffsetDateTime createdAt;
 
   @OneToMany(mappedBy = "visit")

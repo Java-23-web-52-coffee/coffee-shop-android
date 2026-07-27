@@ -24,6 +24,7 @@ import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtClaimNames;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -37,12 +38,13 @@ public class JwtConverter implements Converter<Jwt, UsernamePasswordAuthenticati
 
   @Override
   public UsernamePasswordAuthenticationToken convert(Jwt jwt) {
-    String name = jwt.getClaimAsString("name");
-    if (name == null || name.isBlank()) {
-      throw invalidToken("JWT does not contain a usable name claim");
+    String email = jwt.getClaimAsString("email");
+    if (email == null || email.isBlank()) {
+      throw invalidToken("JWT does not contain a usable email claim");
     }
-    var profile = profileRepository.findByName(name)
-        .orElseThrow(() -> invalidToken("JWT name does not identify an existing profile"));
+    var profile = profileRepository.findByEmail(email)
+        //TODO Change line below to create a user if we allow this service to do so.
+        .orElseThrow(() -> invalidToken("JWT email does not identify an existing profile"));
     var authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
     return new UsernamePasswordAuthenticationToken(profile, jwt.getTokenValue(), authorities);
   }

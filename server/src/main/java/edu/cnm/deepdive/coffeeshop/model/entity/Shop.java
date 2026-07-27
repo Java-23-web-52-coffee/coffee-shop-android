@@ -25,7 +25,7 @@ public class Shop {
   @Column(length = 255)
   private String address;
 
-  @Column(columnDefinition = "json")
+  @Column(columnDefinition = "json", nullable = false)
   private String hours;
 
   @Column(precision = 9, scale = 6)

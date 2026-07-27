@@ -16,7 +16,6 @@ spring:
   profiles:
     active:
       - local
-
-server:
-  error:
-    include-message: never
+  web:
+    error:
+      include-message: never
