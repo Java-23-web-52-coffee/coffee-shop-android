@@ -22,6 +22,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
@@ -40,7 +41,10 @@ public class SecurityConfiguration {
         .csrf(csrf -> csrf.disable())
         .sessionManagement(sessions ->
             sessions.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests(requests -> requests.anyRequest().authenticated())
+        .authorizeHttpRequests(requests ->
+            requests
+                .requestMatchers(HttpMethod.GET, "/shops").anonymous()//Add additional paths as appropriate.
+                .anyRequest().authenticated())
         .oauth2ResourceServer(resourceServer -> resourceServer
             .jwt(jwt -> jwt.jwtAuthenticationConverter(converter)))
         .build();
