@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.coffeeshop.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -43,9 +44,11 @@ public class Shop {
   @Column(name = "image_url", length = 255)
   private String imageUrl;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "shop", fetch = FetchType.LAZY)
   private Set<Visit> visits = new LinkedHashSet<>();
 
+  @JsonIgnore
   @OneToMany(mappedBy = "shop", fetch = FetchType.LAZY)
   private Set<Favorite> favorites = new LinkedHashSet<>();
 

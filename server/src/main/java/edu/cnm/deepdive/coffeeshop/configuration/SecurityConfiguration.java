@@ -43,7 +43,7 @@ public class SecurityConfiguration {
             sessions.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(requests ->
             requests
-                .requestMatchers(HttpMethod.GET, "/shops").anonymous()//Add additional paths as appropriate.
+//                .requestMatchers(HttpMethod.GET, "/shops").anonymous()//Add additional paths as appropriate.
                 .anyRequest().authenticated())
         .oauth2ResourceServer(resourceServer -> resourceServer
             .jwt(jwt -> jwt.jwtAuthenticationConverter(converter)))
