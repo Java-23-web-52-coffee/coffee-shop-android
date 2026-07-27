@@ -5,6 +5,8 @@ info:
   description: API for browsing local coffee shops and publishing reviews.
 servers:
   - url: /api/v1
+security:
+  - bearerAuth: []
 tags:
   - name: Shops
   - name: Reviews

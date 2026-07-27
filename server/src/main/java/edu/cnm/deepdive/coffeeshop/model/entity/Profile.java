@@ -28,7 +28,7 @@ public class Profile {
   @Column(nullable = false, unique = true, length = 127)
   private String email;
 
-  @Column(nullable = false, length = 63)
+  @Column(nullable = false, unique = true, length = 63)
   private String name;
 
   @Column(name = "password_hash", nullable = false, length = 97, columnDefinition = "char(97)")
