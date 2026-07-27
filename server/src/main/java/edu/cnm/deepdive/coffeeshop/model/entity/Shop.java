@@ -1,6 +1,8 @@
 package edu.cnm.deepdive.coffeeshop.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -10,10 +12,14 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "shop")
@@ -21,13 +27,15 @@ public class Shop {
 
   @Id
   @GeneratedValue
+  @JsonProperty(access = Access.READ_ONLY)
   private UUID id;
 
   @Column(length = 255)
   private String address;
 
+  @JdbcTypeCode(SqlTypes.JSON)
   @Column(columnDefinition = "json", nullable = false)
-  private String hours;
+  private Map<String, Object> hours;
 
   @Column(precision = 9, scale = 6)
   private BigDecimal lat;
@@ -68,11 +76,11 @@ public class Shop {
     this.address = address;
   }
 
-  public String getHours() {
+  public Map<String, Object> getHours() {
     return hours;
   }
 
-  public void setHours(String hours) {
+  public void setHours(Map<String, Object> hours) {
     this.hours = hours;
   }
 

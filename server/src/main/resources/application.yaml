@@ -19,3 +19,6 @@ spring:
   web:
     error:
       include-message: never
+server:
+  servlet:
+    context-path: /apis
