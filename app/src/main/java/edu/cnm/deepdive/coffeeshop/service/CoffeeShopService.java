@@ -1,8 +1,10 @@
 package edu.cnm.deepdive.coffeeshop.service;
 
-import edu.cnm.deepdive.coffeeshop.model.entity.Review;
-import edu.cnm.deepdive.coffeeshop.model.entity.Shop;
+import edu.cnm.deepdive.coffeeshop.model.dto.CreateReviewDto;
+import edu.cnm.deepdive.coffeeshop.model.dto.ReviewDto;
+import edu.cnm.deepdive.coffeeshop.model.dto.ShopDto;
 import java.util.List;
+import java.util.UUID;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -16,14 +18,14 @@ public interface CoffeeShopService {
   }
 
   @GET("shops")
-  Call<List<Shop>> getShops();
+  Call<List<ShopDto>> getShops();
 
   @GET("shops/{id}")
-  Call<Shop> getShopDetails(@Path("id") Long id);
+  Call<ShopDto> getShopDetails(@Path("id") UUID id);
 
   @GET("shops/{shopId}/reviews")
-  Call<List<Review>> getShopReviews(@Path("shopId") Long shopId);
+  Call<List<ReviewDto>> getShopReviews(@Path("shopId") UUID shopId);
 
   @POST("shops/{shopId}/reviews")
-  Call<Review> postReview(@Path("shopId") Long shopId, @Body Review review);
+  Call<ReviewDto> postReview(@Path("shopId") UUID shopId, @Body CreateReviewDto review);
 }
