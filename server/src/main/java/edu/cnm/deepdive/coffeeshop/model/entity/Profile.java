@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.coffeeshop.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,6 +23,7 @@ public class Profile {
   @GeneratedValue
   private UUID id;
 
+  @JsonIgnore
   @Column(name = "activation_token", columnDefinition = "bpchar(32)")
   private String activationToken;
 
@@ -31,6 +33,7 @@ public class Profile {
   @Column(nullable = false, length = 63)
   private String name;
 
+  @JsonIgnore
   @Column(name = "password_hash", nullable = false, columnDefinition = "bpchar(97)")
   private String passwordHash;
 
