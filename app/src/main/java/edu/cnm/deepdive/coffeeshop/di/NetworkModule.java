@@ -40,6 +40,8 @@ public final class NetworkModule {
   static Moshi provideMoshi() {
     return new Moshi.Builder()
         .add(new UuidJsonAdapter())
+        .add(new URIJsonAdapter())
+        .add(new BigDecimalJsonAdapter())
         .add(new OffsetDateTimeJsonAdapter())
         .addLast(new KotlinJsonAdapterFactory())
         .build();
