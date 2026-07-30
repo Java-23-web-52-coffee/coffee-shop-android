@@ -1,35 +1,53 @@
 package edu.cnm.deepdive.coffeeshop.service;
 
 import edu.cnm.deepdive.coffeeshop.model.entity.Favorite;
+import edu.cnm.deepdive.coffeeshop.model.entity.FavoriteId;
 import edu.cnm.deepdive.coffeeshop.model.entity.Profile;
-import java.util.List;
-import java.util.UUID;
+import edu.cnm.deepdive.coffeeshop.model.entity.Shop;
+import edu.cnm.deepdive.coffeeshop.repository.FavoriteRepository;
+import edu.cnm.deepdive.coffeeshop.repository.ProfileRepository;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FavoriteServiceImpl implements FavoriteService {
 
-  private final FavoriteService service;
+  private final ProfileRepository profileRepository;
+  private final FavoriteRepository favoriteRepository;
 
   @Autowired
-  public FavoriteServiceImpl(FavoriteService service) {
-    this.service = service;
+  public FavoriteServiceImpl(ProfileRepository profileRepository,
+      FavoriteRepository favoriteRepository) {
+    this.profileRepository = profileRepository;
+    this.favoriteRepository = favoriteRepository;
   }
 
   @Override
-  public List<Favorite> getFavorites(Profile profile) {
-    return service.getFavorites(profile);
+  public Set<Favorite> getFavorites(Profile profile) {
+    return profile.getFavorites();
   }
 
   @Override
-  public Favorite saveFavorite(Favorite favorite, Profile profile) {
-    return service.saveFavorite(favorite, profile);
+  public void saveFavorite(Shop shop, Profile profile) {
+    Favorite favorite = new Favorite();
+    favorite.setShop(shop);
+    favorite.setProfile(profile);
+    profileRepository.save(profile);
   }
 
   @Override
-  public Favorite removeFavorite(UUID shopId, Profile profile) {
-    return service.removeFavorite(shopId, profile);
+  public void removeFavorite(Shop shop, Profile profile) {
+    FavoriteId favoriteId = new FavoriteId(profile.getId(), shop.getId());
+    // TODO: 7/30/26 Explore simplification.
+    favoriteRepository.findById(favoriteId)
+        .map((favorite) -> {
+          Profile updatedProfile = favorite.getProfile();
+          updatedProfile.getFavorites().remove(favorite);
+          profileRepository.save(updatedProfile);
+          favoriteRepository.delete(favorite);
+          return null;
+        });
   }
 
 }

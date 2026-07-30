@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.coffeeshop.model.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -38,7 +39,9 @@ public class Profile {
   @OrderBy("createdAt desc")
   private Set<Visit> visits = new LinkedHashSet<>();
 
-  @OneToMany(mappedBy = "profile", fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY,
+      orphanRemoval = true,
+  cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
   private Set<Favorite> favorites = new LinkedHashSet<>();
 
   @OneToMany(mappedBy = "profile", fetch = FetchType.EAGER)
