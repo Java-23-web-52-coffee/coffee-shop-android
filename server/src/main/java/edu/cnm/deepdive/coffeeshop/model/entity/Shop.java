@@ -59,7 +59,7 @@ public class Shop {
   private Set<Visit> visits = new LinkedHashSet<>();
 
   @JsonIgnore
-  @ManyToMany(mappedBy = "shop", fetch = FetchType.LAZY)
+  @ManyToMany(mappedBy = "favorites", fetch = FetchType.LAZY)
   @OrderBy("name ASC")
   private final Set<Profile> favorites = new LinkedHashSet<>();
 
