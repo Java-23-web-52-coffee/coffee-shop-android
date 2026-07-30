@@ -22,3 +22,7 @@ spring:
 server:
   servlet:
     context-path: /apis
+
+security:
+  jwt:
+    ttl: PT3H
