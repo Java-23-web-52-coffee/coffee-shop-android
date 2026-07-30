@@ -20,7 +20,7 @@ import edu.cnm.deepdive.coffeeshop.model.dto.SignInRequest;
 import edu.cnm.deepdive.coffeeshop.model.dto.SignUpRequest;
 import edu.cnm.deepdive.coffeeshop.model.entity.Profile;
 
-public interface ProfileService {
+public interface AuthService {
 
   PublicProfile signUp(SignUpRequest request);
 

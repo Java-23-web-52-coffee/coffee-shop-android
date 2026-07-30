@@ -28,7 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
-public class ProfileServiceImpl implements ProfileService {
+public class AuthServiceImpl implements AuthService {
 
   private static final String DUPLICATE_MESSAGE =
       "An account with that email or name already exists";
@@ -39,7 +39,7 @@ public class ProfileServiceImpl implements ProfileService {
   private final PasswordEncoder passwordEncoder;
 
   @Autowired
-  public ProfileServiceImpl(ProfileRepository repository, PasswordEncoder passwordEncoder) {
+  public AuthServiceImpl(ProfileRepository repository, PasswordEncoder passwordEncoder) {
     this.repository = repository;
     this.passwordEncoder = passwordEncoder;
   }

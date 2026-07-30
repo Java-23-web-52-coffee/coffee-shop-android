@@ -31,7 +31,7 @@ import edu.cnm.deepdive.coffeeshop.model.dto.SignUpRequest;
 import edu.cnm.deepdive.coffeeshop.model.entity.Profile;
 import edu.cnm.deepdive.coffeeshop.service.JwtConverter;
 import edu.cnm.deepdive.coffeeshop.service.JwtIssuer;
-import edu.cnm.deepdive.coffeeshop.service.ProfileService;
+import edu.cnm.deepdive.coffeeshop.service.AuthService;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +57,7 @@ class AuthenticationControllerTest {
   private MockMvc mockMvc;
 
   @MockitoBean
-  private ProfileService profileService;
+  private AuthService authService;
 
   @MockitoBean
   private JwtIssuer jwtIssuer;
@@ -67,7 +67,7 @@ class AuthenticationControllerTest {
 
   @Test
   void signUpReturnsCreatedProfile() throws Exception {
-    when(profileService.signUp(any(SignUpRequest.class)))
+    when(authService.signUp(any(SignUpRequest.class)))
         .thenReturn(new PublicProfile(PROFILE_ID, "Sam Barista"));
 
     mockMvc
@@ -99,7 +99,7 @@ class AuthenticationControllerTest {
 
   @Test
   void signUpReportsDuplicateEmailAsConflict() throws Exception {
-    when(profileService.signUp(any(SignUpRequest.class)))
+    when(authService.signUp(any(SignUpRequest.class)))
         .thenThrow(new ResponseStatusException(HttpStatus.CONFLICT,
             "An account with that email or name already exists",
             new DataIntegrityViolationException("duplicate key value")));
@@ -118,7 +118,7 @@ class AuthenticationControllerTest {
 
   @Test
   void signInReturnsProfileAndBearerToken() throws Exception {
-    when(profileService.authenticate(any(SignInRequest.class))).thenReturn(profile());
+    when(authService.authenticate(any(SignInRequest.class))).thenReturn(profile());
     when(jwtIssuer.issue(any(Profile.class))).thenReturn(TOKEN);
 
     mockMvc
@@ -137,7 +137,7 @@ class AuthenticationControllerTest {
 
   @Test
   void signInRejectsBadCredentialsWithoutIssuingAToken() throws Exception {
-    when(profileService.authenticate(any(SignInRequest.class)))
+    when(authService.authenticate(any(SignInRequest.class)))
         .thenThrow(new ResponseStatusException(HttpStatus.UNAUTHORIZED,
             "Email or password is incorrect please try again"));
 

@@ -43,7 +43,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.server.ResponseStatusException;
 
 @ExtendWith(MockitoExtension.class)
-class ProfileServiceImplTest {
+class AuthServiceImplTest {
 
   private static final UUID PROFILE_ID = UUID.fromString("00000000-0000-0000-0000-000000000001");
   private static final String EMAIL = "barista@example.com";
@@ -56,11 +56,11 @@ class ProfileServiceImplTest {
   @Mock
   private PasswordEncoder passwordEncoder;
 
-  private ProfileServiceImpl service;
+  private AuthServiceImpl service;
 
   @BeforeEach
   void setUp() {
-    service = new ProfileServiceImpl(repository, passwordEncoder);
+    service = new AuthServiceImpl(repository, passwordEncoder);
   }
 
   @Test

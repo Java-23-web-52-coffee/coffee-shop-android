@@ -17,7 +17,7 @@ package edu.cnm.deepdive.coffeeshop.controller;
 
 import edu.cnm.deepdive.coffeeshop.model.dto.PublicProfile;
 import edu.cnm.deepdive.coffeeshop.model.dto.SignUpRequest;
-import edu.cnm.deepdive.coffeeshop.service.ProfileService;
+import edu.cnm.deepdive.coffeeshop.service.AuthService;
 import jakarta.validation.Valid;
 import java.net.URI;
 import org.springframework.http.MediaType;
@@ -32,15 +32,15 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequestMapping("/sign-up")
 public class SignUpController {
 
-  private final ProfileService profileService;
+  private final AuthService authService;
 
-  public SignUpController(ProfileService profileService) {
-    this.profileService = profileService;
+  public SignUpController(AuthService authService) {
+    this.authService = authService;
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<PublicProfile> postProfile(@Valid @RequestBody SignUpRequest request) {
-    PublicProfile profile = profileService.signUp(request);
+    PublicProfile profile = authService.signUp(request);
     URI location = ServletUriComponentsBuilder
         .fromCurrentContextPath()
         .path("/profiles/{id}")

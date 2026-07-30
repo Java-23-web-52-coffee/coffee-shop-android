@@ -19,7 +19,7 @@ import edu.cnm.deepdive.coffeeshop.model.dto.PublicProfile;
 import edu.cnm.deepdive.coffeeshop.model.dto.SignInRequest;
 import edu.cnm.deepdive.coffeeshop.model.entity.Profile;
 import edu.cnm.deepdive.coffeeshop.service.JwtIssuer;
-import edu.cnm.deepdive.coffeeshop.service.ProfileService;
+import edu.cnm.deepdive.coffeeshop.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -35,17 +35,17 @@ public class SignInController {
 
   private static final String BEARER_PREFIX = "Bearer ";
 
-  private final ProfileService profileService;
+  private final AuthService authService;
   private final JwtIssuer jwtIssuer;
 
-  public SignInController(ProfileService profileService, JwtIssuer jwtIssuer) {
-    this.profileService = profileService;
+  public SignInController(AuthService authService, JwtIssuer jwtIssuer) {
+    this.authService = authService;
     this.jwtIssuer = jwtIssuer;
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<PublicProfile> postCredentials(@Valid @RequestBody SignInRequest request) {
-    Profile profile = profileService.authenticate(request);
+    Profile profile = authService.authenticate(request);
     return ResponseEntity
         .ok()
         .header(HttpHeaders.AUTHORIZATION, BEARER_PREFIX + jwtIssuer.issue(profile))

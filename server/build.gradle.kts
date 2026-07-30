@@ -81,6 +81,7 @@ openApiGenerate {
     apiPackage.set("${project.group}.controller.api")
     modelPackage.set("${project.group}.model.dto")
     invokerPackage.set("${project.group}.openapi")
+    modelNameSuffix.set("Dto")
     configOptions.set(
         mapOf(
             "interfaceOnly" to "true",

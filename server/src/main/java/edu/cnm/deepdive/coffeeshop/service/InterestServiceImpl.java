@@ -25,20 +25,17 @@ public class InterestServiceImpl implements InterestService {
   }
 
   @Override
-  public Interest getInterests(UUID interestId) {
-    return interestRepository.findById(interestId).orElseThrow();
+  public Interest getInterests(Interest interest) {
+    return null;
   }
 
   @Override
-  public List<Interest> getAllInterests() {
-    return interestRepository.getAllByOrderByCategoryAsc();
+  public List<Interest> getAllInterests(Profile profile) {
+    return List.of();
   }
 
   @Override
-  public Set<Preference> getPreferences(Profile profile) {
-    return profileRepository.findById(profile.getId())
-        .map(Profile::getPreferences)
-        .orElseThrow();
+  public Interest preferredInterest(Profile profile) {
+    return null;
   }
-
 }
