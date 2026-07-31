@@ -342,8 +342,13 @@ paths:
           application/json:
             schema: { $ref: '#/components/schemas/FavoriteRequest' }
       responses:
-        '204':
+        '201':
           description: Favorite created.
+          headers:
+            Location: { schema: { type: string } }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Shop' }
         '400': { $ref: '#/components/responses/BadRequest' }
         '401': { $ref: '#/components/responses/Unauthorized' }
         '404': { $ref: '#/components/responses/NotFound' }
