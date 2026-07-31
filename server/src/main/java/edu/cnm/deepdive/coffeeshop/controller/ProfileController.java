@@ -3,13 +3,9 @@ package edu.cnm.deepdive.coffeeshop.controller;
 import edu.cnm.deepdive.coffeeshop.controller.api.ProfileApi;
 import edu.cnm.deepdive.coffeeshop.model.dto.ProfileUpdateRequestDto;
 import edu.cnm.deepdive.coffeeshop.model.dto.PublicProfileDto;
-import edu.cnm.deepdive.coffeeshop.model.entity.Profile;
 import edu.cnm.deepdive.coffeeshop.service.ContextProfileService;
 import edu.cnm.deepdive.coffeeshop.service.ProfileService;
-import okhttp3.Response;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController

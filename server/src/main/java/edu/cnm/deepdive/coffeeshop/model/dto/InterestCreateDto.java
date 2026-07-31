@@ -1,8 +1,11 @@
 package edu.cnm.deepdive.coffeeshop.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-public record InterestCreateDto(@JsonProperty(access = Access.WRITE_ONLY) String category) {
+public record InterestCreateDto (
+    @NotNull
+    @NotBlank
+    String category) {
 
 }
