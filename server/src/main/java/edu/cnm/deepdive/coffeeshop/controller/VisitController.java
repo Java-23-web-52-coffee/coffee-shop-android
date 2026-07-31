@@ -5,8 +5,10 @@ import edu.cnm.deepdive.coffeeshop.model.dto.VisitDto;
 import edu.cnm.deepdive.coffeeshop.model.dto.VisitRequestDto;
 import edu.cnm.deepdive.coffeeshop.service.ContextProfileService;
 import edu.cnm.deepdive.coffeeshop.service.VisitService;
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,16 +25,23 @@ public class VisitController implements VisitApi {
 
   @Override
   public ResponseEntity<VisitDto> createVisit(VisitRequestDto visitRequestDto) {
-    return null;
+    VisitDto dto = visitService.saveVisit(visitRequestDto,
+        contextProfileService.getContextProfile().getId());
+    URI location = WebMvcLinkBuilder.linkTo(
+        WebMvcLinkBuilder.methodOn(getClass()).getVisitById(dto.getId())).toUri();
+    return ResponseEntity.created(location).body(dto);
   }
 
   @Override
   public ResponseEntity<VisitDto> getVisitById(UUID id) {
-    return null;
+    return ResponseEntity.ok(
+        visitService.getVisit(id, contextProfileService.getContextProfile().getId()));
   }
 
   @Override
   public ResponseEntity<List<VisitDto>> listMyVisits() {
-    return null;
+    return ResponseEntity.ok(
+        visitService.getMyVisits(contextProfileService.getContextProfile().getId()));
   }
+
 }

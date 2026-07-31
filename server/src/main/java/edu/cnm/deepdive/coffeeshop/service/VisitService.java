@@ -13,5 +13,5 @@ public interface VisitService {
 
   VisitDto getVisit(UUID visitId, UUID profileId);
 
-  List<VisitDto> getMyVisit(UUID profileId);
+  List<VisitDto> getMyVisits(UUID profileId);
 }

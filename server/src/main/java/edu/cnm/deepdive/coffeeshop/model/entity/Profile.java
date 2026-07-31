@@ -13,6 +13,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -40,7 +42,7 @@ public class Profile {
 
   @OneToMany(mappedBy = "profile", fetch = FetchType.LAZY)
   @OrderBy("createdAt desc")
-  private Set<Visit> visits = new LinkedHashSet<>();
+  private final List<Visit> visits = new LinkedList<>();
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE,
       CascadeType.PERSIST, CascadeType.REFRESH})
@@ -92,12 +94,8 @@ public class Profile {
     this.passwordHash = passwordHash;
   }
 
-  public Set<Visit> getVisits() {
+  public List<Visit> getVisits() {
     return visits;
-  }
-
-  public void setVisits(Set<Visit> visits) {
-    this.visits = visits;
   }
 
   public Set<Shop> getFavorites() {
