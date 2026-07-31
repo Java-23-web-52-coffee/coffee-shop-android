@@ -7,8 +7,10 @@ import edu.cnm.deepdive.coffeeshop.model.entity.Profile;
 import edu.cnm.deepdive.coffeeshop.service.ContextProfileService;
 import edu.cnm.deepdive.coffeeshop.service.FavoriteService;
 import edu.cnm.deepdive.coffeeshop.service.ProfileService;
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,9 +28,12 @@ public class FavoriteController implements FavoriteApi {
   }
 
   @Override
-  public ResponseEntity<Void> createFavorite(FavoriteRequestDto favoriteRequestDto) {
-     favoriteService.saveFavorite(favoriteRequestDto, contextProfileService.getContextProfile());
-    return ResponseEntity.noContent().build();
+  public ResponseEntity<ShopDto> createFavorite(FavoriteRequestDto favoriteRequestDto) {
+    ShopDto dto = favoriteService.saveFavorite(favoriteRequestDto,
+        contextProfileService.getContextProfile());
+    URI location = WebMvcLinkBuilder.linkTo(
+        WebMvcLinkBuilder.methodOn(ShopController.class).getShopById(dto.getId())).toUri();
+    return ResponseEntity.created(location).body(dto);
   }
 
   @Override
@@ -39,7 +44,8 @@ public class FavoriteController implements FavoriteApi {
 
   @Override
   public ResponseEntity<List<ShopDto>> listMyFavorites() {
-    return ResponseEntity.ok(favoriteService.getFavorites(contextProfileService.getContextProfile()));
+    return ResponseEntity.ok(
+        favoriteService.getFavorites(contextProfileService.getContextProfile()));
   }
 
 }

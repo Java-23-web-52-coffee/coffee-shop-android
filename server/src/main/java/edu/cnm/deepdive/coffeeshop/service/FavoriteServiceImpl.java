@@ -36,13 +36,17 @@ public class FavoriteServiceImpl implements FavoriteService {
   }
 
   @Override
-  public void saveFavorite(FavoriteRequestDto dto, Profile profile) {
-    shopRepository.findById(dto.getShopId())
-        .map((shop) -> profileRepository.findById(profile.getId())
-            .map((p) -> {
-              p.getFavorites().add(shop);
-              return profileRepository.save(p);
-            }))
+  public ShopDto saveFavorite(FavoriteRequestDto dto, Profile profile) {
+    return shopRepository.findById(dto.getShopId())
+        .map((shop) -> {
+          profileRepository.findById(profile.getId())
+              .map((p) -> {
+                p.getFavorites().add(shop);
+                return profileRepository.save(p);
+              });
+          return shop;
+        })
+        .map(converter::convert)
         .orElseThrow();
   }
 

@@ -1,12 +1,16 @@
 package edu.cnm.deepdive.coffeeshop.controller;
 
 import edu.cnm.deepdive.coffeeshop.controller.api.InterestApi;
+import edu.cnm.deepdive.coffeeshop.model.dto.InterestCreateDto;
 import edu.cnm.deepdive.coffeeshop.model.dto.InterestDto;
-import edu.cnm.deepdive.coffeeshop.model.entity.Interest;
 import edu.cnm.deepdive.coffeeshop.service.InterestService;
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,17 +24,22 @@ public class InterestController implements InterestApi {
 
   @Override
   public ResponseEntity<InterestDto> getInterestById(UUID id) {
-    Interest interest = interestService.getInterest(id);
-    InterestDto dto = interestService.toDto(interest);
+    InterestDto dto = interestService.getInterest(id);
     return ResponseEntity.ok(dto);
   }
 
   @Override
   public ResponseEntity<List<InterestDto>> listInterests() {
-    List<InterestDto> interests = interestService.getAllInterests().stream()
-        .map(interestService::toDto)
-        .toList();
+    List<InterestDto> interests = interestService.getAllInterests();
     return ResponseEntity.ok(interests);
+  }
+
+  @PostMapping(path = InterestApi.PATH_LIST_INTERESTS, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<InterestDto> createInterest(InterestCreateDto interest) {
+    InterestDto dto = interestService.createInterest(interest);
+    URI location = WebMvcLinkBuilder.linkTo(
+        WebMvcLinkBuilder.methodOn(InterestController.class).getInterestById(dto.getId())).toUri();
+    return ResponseEntity.created(location).body(dto);
   }
 
 }

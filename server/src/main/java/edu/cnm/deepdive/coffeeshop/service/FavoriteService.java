@@ -13,7 +13,7 @@ public interface FavoriteService {
   List<ShopDto> getFavorites(Profile profile);
   // TODO: 7/30/26 Verify returning shops is okay.
 
-  void saveFavorite(FavoriteRequestDto dto, Profile profile);
+  ShopDto saveFavorite(FavoriteRequestDto dto, Profile profile);
   // TODO: 7/30/26 Verify that returning nothing is okay.
 
   void removeFavorite(UUID  shopId, Profile profile);

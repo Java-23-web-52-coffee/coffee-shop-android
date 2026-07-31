@@ -13,7 +13,7 @@ public class InterestToInterestDtoConverter implements Converter<Interest, Inter
     InterestDto dto = new InterestDto();
     // Assuming these are the fields your DTO has:
     dto.setId(source.getId());
-    dto.setName(source.getName());
+    dto.setCategory(source.getCategory());
     return dto;
   }
 }
