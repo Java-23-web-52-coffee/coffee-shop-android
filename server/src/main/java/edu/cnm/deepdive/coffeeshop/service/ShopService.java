@@ -14,5 +14,4 @@ public interface ShopService {
 
   List<ShopDto> getAllShops();
 
-  ShopDto buildShopDto(Shop shop);
 }

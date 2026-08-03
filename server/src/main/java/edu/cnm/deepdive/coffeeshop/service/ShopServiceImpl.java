@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.coffeeshop.service;
 
+import edu.cnm.deepdive.coffeeshop.conversion.ShopToShopDtoConverter;
 import edu.cnm.deepdive.coffeeshop.model.dto.ShopDto;
 import edu.cnm.deepdive.coffeeshop.model.entity.Profile;
 import edu.cnm.deepdive.coffeeshop.model.entity.Shop;
@@ -8,47 +9,38 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ShopServiceImpl implements ShopService {
 
   private final ShopRepository repository;
+  private final Converter<Shop, ShopDto> converter;
 
   @Autowired
-  public ShopServiceImpl(ShopRepository repository) {
+  public ShopServiceImpl(ShopRepository repository, Converter<Shop, ShopDto> converter) {
     this.repository = repository;
+    this.converter = converter;
   }
 
   @Override
   public ShopDto getShop(UUID id) {
     return repository.findById(id)
-        .map(this::buildShopDto)
+        .map(converter::convert)
         .orElseThrow();
   }
 
   @Override
   public ShopDto saveShop(Shop shop, Profile profile) {
-    return buildShopDto(repository.save(shop));
+    return converter.convert(repository.save(shop));
   }
 
   @Override
   public List<ShopDto> getAllShops() {
     return repository.findAll().stream()
-        .map(this::buildShopDto)
+        .map(converter::convert)
         .toList();
   }
 
-  public ShopDto buildShopDto(Shop shop) {
-    ShopDto dto = new ShopDto();
-    dto.setName(shop.getName());
-    dto.setId(shop.getId());
-    dto.setAddress(shop.getAddress());
-    dto.setPhone(shop.getPhone());
-    dto.setHours(shop.getHours());
-    dto.setImageUrl(URI.create(shop.getImageUrl()));
-    dto.setLat(shop.getLat().doubleValue());
-    dto.setLng(shop.getLng().doubleValue());
-    return dto;
-  }
 }

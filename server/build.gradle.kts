@@ -42,8 +42,8 @@ kotlin {
 
 dependencies {
 
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+//    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+//    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("org.bouncycastle:bcprov-jdk18on:1.79")
 
     implementation(libs.kotlin.reflect)
@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.spring.boot.starter.data.jpa)
     implementation(libs.spring.boot.starter.security)
     implementation(libs.spring.boot.oauth2.resource.server)
+    implementation(libs.spring.boot.starter.hateoas)
     implementation(libs.flyway.core)
     implementation(libs.flyway.database.postgresql)
 

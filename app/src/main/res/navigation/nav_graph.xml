@@ -2,6 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/nav_graph"
-  app:startDestination="@id/fragment_sign_in">
+  app:startDestination="@id/signInFragment">
+
+  <fragment
+    android:id="@+id/signInFragment"
+    android:name="edu.cnm.deepdive.coffeeshop.controller.SignInFragment"
+    android:label="@string/sign_in">
+  </fragment>
 
 </navigation>

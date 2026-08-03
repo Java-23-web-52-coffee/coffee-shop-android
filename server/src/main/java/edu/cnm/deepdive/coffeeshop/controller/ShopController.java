@@ -4,6 +4,7 @@ import edu.cnm.deepdive.coffeeshop.controller.api.ShopApi;
 import edu.cnm.deepdive.coffeeshop.model.dto.ShopDto;
 import edu.cnm.deepdive.coffeeshop.model.entity.Profile;
 import edu.cnm.deepdive.coffeeshop.model.entity.Shop;
+import edu.cnm.deepdive.coffeeshop.service.ContextProfileService;
 import edu.cnm.deepdive.coffeeshop.service.ShopService;
 import java.util.List;
 import java.util.UUID;
@@ -21,9 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ShopController implements ShopApi {
 
   private final ShopService shopService;
+  private final ContextProfileService contextProfileService;
 
-  public ShopController(ShopService shopService) {
+  public ShopController(ShopService shopService, ContextProfileService contextProfileService) {
     this.shopService = shopService;
+    this.contextProfileService = contextProfileService;
   }
 
   @Override
@@ -37,12 +40,8 @@ public class ShopController implements ShopApi {
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ShopDto> postShop(@RequestBody Shop shop, @AuthenticationPrincipal Profile profile) {
-    return ResponseEntity.ok(shopService.saveShop(shop, profile));
-  }
-
-  private Profile getCurrentProfile() {
-    return (Profile) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+  public ResponseEntity<ShopDto> postShop(@RequestBody Shop shop) {
+    return ResponseEntity.ok(shopService.saveShop(shop, contextProfileService.getContextProfile()));
   }
 
 }
