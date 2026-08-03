@@ -18,4 +18,4 @@ order: 10
 
 ## Data definition language 
 
-{% include include-file.md type="postgresql" file="sql/ddl-server.sql" %}
+{% include linked-file.md type="postgresql" file="sql/ddl-server.sql" %}
