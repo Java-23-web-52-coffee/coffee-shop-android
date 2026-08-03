@@ -2,6 +2,60 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/nav_graph"
-  app:startDestination="@id/fragment_sign_in">
+  app:startDestination="@id/signInFragment">
 
+  <fragment
+    android:id="@+id/signInFragment"
+    android:name="edu.cnm.deepdive.coffeeshop.controller.SignInFragment"
+    android:label="@string/sign_in">
+
+    <action
+      android:id="@+id/action_signIn_to_shopList"
+      app:destination="@id/shopListFragment"
+      app:popUpTo="@id/signInFragment"
+      app:popUpToInclusive="true"/>
+  </fragment>
+
+  <fragment
+    android:id="@+id/shopListFragment"
+    android:name="edu.cnm.deepdive.coffeeshop.controller.ShopListFragment"
+    android:label="@string/coffee_shop">
+
+    <action
+      android:id="@+id/action_shopList_to_shopDetail"
+      app:destination="@id/shopDetailFragment"/>
+
+    <action
+      android:id="@+id/action_shopList_to_profile"
+      app:destination="@id/profileFragment"/>
+  </fragment>
+
+  <fragment
+    android:id="@+id/shopDetailFragment"
+    android:name="edu.cnm.deepdive.coffeeshop.controller.ShopDetailFragment"
+    android:label="Shop details">
+
+    <argument
+      android:name="shopId"
+      app:argType="string"/>
+
+    <action
+      android:id="@+id/action_shopDetail_to_createReview"
+      app:destination="@id/createReviewFragment"/>
+  </fragment>
+
+  <fragment
+    android:id="@+id/createReviewFragment"
+    android:name="edu.cnm.deepdive.coffeeshop.controller.CreateReviewFragment"
+    android:label="Write review">
+
+    <argument
+      android:name="shopId"
+      app:argType="string"/>
+  </fragment>
+
+  <fragment
+    android:id="@+id/profileFragment"
+    android:name="edu.cnm.deepdive.coffeeshop.controller.ProfileFragment"
+    android:label="@string/profile"/>
 </navigation>
