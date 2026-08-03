@@ -20,3 +20,10 @@ spring:
     group:
       ddl:
         - local
+
+  jackson:
+    deserialization:
+      use-big-decimal-for-floats: true
+    generator:
+      write-numbers-as-strings: false
+      write-bigdecimal-as-plain: true

@@ -6,6 +6,7 @@ import edu.cnm.deepdive.coffeeshop.model.dto.RatingUpdateRequestDto;
 import edu.cnm.deepdive.coffeeshop.model.entity.Interest;
 import edu.cnm.deepdive.coffeeshop.model.entity.Profile;
 import edu.cnm.deepdive.coffeeshop.model.entity.Rating;
+import edu.cnm.deepdive.coffeeshop.model.entity.Visit;
 import edu.cnm.deepdive.coffeeshop.repository.InterestRepository;
 import edu.cnm.deepdive.coffeeshop.repository.VisitRepository;
 import java.util.List;
@@ -32,7 +33,7 @@ public class RatingServiceImpl implements RatingService {
 
   @Override
   public List<RatingDto> listRatings(UUID visitId) {
-    return interestRepository.findById(visitId)
+    return visitRepository.findById(visitId)
         .map(visit -> visit.getRatings().stream()
             .map(outputConverter::convert)
             .toList())
@@ -41,12 +42,16 @@ public class RatingServiceImpl implements RatingService {
 
   @Override
   public void deleteRating(UUID visitId, UUID interest, Profile profile) {
-    interestRepository.findById(visitId)
-        .map(Interest::getRatings)
-        .map(
-            (ratings) -> ratings.removeIf(rating ->
-                rating.getInterest().getId().equals(interest)));
+    visitRepository.findById(visitId)
+        .map(visit -> {
+          visit.getRatings().removeIf(rating ->
+              rating.getInterest().getId().equals(interest));
+          visitRepository.save(visit);
+          return visit;
+        })
+        .orElseThrow();
   }
+
 
   @Override
   public RatingDto saveRating(UUID visitId, RatingRequestDto ratingRequestDto, Profile profile) {

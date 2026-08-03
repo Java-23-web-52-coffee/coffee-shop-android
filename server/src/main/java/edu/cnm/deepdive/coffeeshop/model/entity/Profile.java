@@ -51,7 +51,8 @@ public class Profile {
   @OrderBy("name ASC")
   private final Set<Shop> favorites = new LinkedHashSet<>();
 
-  @OneToMany(mappedBy = "profile", fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "profile", fetch = FetchType.EAGER, cascade = {
+      CascadeType.ALL}, orphanRemoval = true)
   private Set<Preference> preferences = new LinkedHashSet<>();
 
   public UUID getId() {

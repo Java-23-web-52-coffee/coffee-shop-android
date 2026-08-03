@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class RatingToRatingDto implements Converter<Rating, RatingDto> {
 
-
   @Override
   public RatingDto convert(Rating source) {
     RatingDto dto = new RatingDto();
