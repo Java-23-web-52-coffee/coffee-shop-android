@@ -2,12 +2,12 @@ package edu.cnm.deepdive.coffeeshop.controller;
 
 import edu.cnm.deepdive.coffeeshop.controller.api.ShopApi;
 import edu.cnm.deepdive.coffeeshop.model.dto.ShopDto;
-import edu.cnm.deepdive.coffeeshop.model.entity.Profile;
 import edu.cnm.deepdive.coffeeshop.model.entity.Shop;
 import edu.cnm.deepdive.coffeeshop.service.ContextProfileService;
 import edu.cnm.deepdive.coffeeshop.service.ShopService;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Profile("service")
 public class ShopController implements ShopApi {
 
   private final ShopService shopService;

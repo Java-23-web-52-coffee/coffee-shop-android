@@ -27,6 +27,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Component;
 
 @Component
+@org.springframework.context.annotation.Profile("service")
 public class JwtIssuer {
 
   private final JwtEncoder encoder;

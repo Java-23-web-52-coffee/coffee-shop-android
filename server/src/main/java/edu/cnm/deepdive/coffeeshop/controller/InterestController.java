@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.context.annotation.Profile;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Validated
+@Profile("service")
 public class InterestController implements InterestApi {
 
   private final InterestService interestService;

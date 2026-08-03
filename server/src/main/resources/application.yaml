@@ -15,11 +15,8 @@ spring:
 
   profiles:
     active:
+      - service
       - local
-  web:
-    error:
-      include-message: never
-
-security:
-  jwt:
-    ttl: PT3H
+    group:
+      ddl:
+        - local

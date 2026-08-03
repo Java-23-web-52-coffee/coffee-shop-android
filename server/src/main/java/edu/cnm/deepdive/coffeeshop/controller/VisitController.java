@@ -8,11 +8,13 @@ import edu.cnm.deepdive.coffeeshop.service.VisitService;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.context.annotation.Profile;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Profile("service")
 public class VisitController implements VisitApi {
 
   private final VisitService visitService;

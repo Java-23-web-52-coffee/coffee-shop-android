@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
+@org.springframework.context.annotation.Profile("service")
 public class ContextProfileServiceImpl implements ContextProfileService {
 
   @Override

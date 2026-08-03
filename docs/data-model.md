@@ -15,3 +15,7 @@ order: 10
 ## Entity relationship diagram
 
 [![Entity relationship diagram](img/coffeeshop.svg)](img/CoffeeShop.pdf)
+
+## Data definition language 
+
+{% include include-file.md type="postgresql" file="sql/ddl-server.sql" %}

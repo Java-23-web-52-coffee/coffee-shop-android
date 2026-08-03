@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/sign-in")
+@org.springframework.context.annotation.Profile("service")
 public class SignInController {
 
   private static final String BEARER_PREFIX = "Bearer ";
