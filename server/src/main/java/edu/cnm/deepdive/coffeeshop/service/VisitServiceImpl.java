@@ -13,6 +13,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
 @Service
+@org.springframework.context.annotation.Profile("service")
 public class VisitServiceImpl implements VisitService {
 
   private final VisitRepository visitRepository;

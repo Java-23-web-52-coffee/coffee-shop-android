@@ -5,10 +5,12 @@ import edu.cnm.deepdive.coffeeshop.model.dto.ProfileUpdateRequestDto;
 import edu.cnm.deepdive.coffeeshop.model.dto.PublicProfileDto;
 import edu.cnm.deepdive.coffeeshop.service.ContextProfileService;
 import edu.cnm.deepdive.coffeeshop.service.ProfileService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Profile("service")
 public class ProfileController implements ProfileApi {
 
   private final ProfileService profileService;

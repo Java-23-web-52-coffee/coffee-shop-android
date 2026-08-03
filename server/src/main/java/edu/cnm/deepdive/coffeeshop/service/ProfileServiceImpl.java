@@ -2,12 +2,13 @@ package edu.cnm.deepdive.coffeeshop.service;
 
 import edu.cnm.deepdive.coffeeshop.model.dto.ProfileUpdateRequestDto;
 import edu.cnm.deepdive.coffeeshop.model.dto.PublicProfileDto;
-import edu.cnm.deepdive.coffeeshop.model.entity.Profile;
 import edu.cnm.deepdive.coffeeshop.repository.ProfileRepository;
 import java.util.UUID;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile("service")
 public class ProfileServiceImpl implements ProfileService {
 
   private final ProfileRepository profileRepository;

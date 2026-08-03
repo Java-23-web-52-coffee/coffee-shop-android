@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
+@org.springframework.context.annotation.Profile("service")
 public class AuthServiceImpl implements AuthService {
 
   private static final String DUPLICATE_MESSAGE =

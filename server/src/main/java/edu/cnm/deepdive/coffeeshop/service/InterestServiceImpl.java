@@ -7,10 +7,12 @@ import edu.cnm.deepdive.coffeeshop.repository.InterestRepository;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile("service")
 public class InterestServiceImpl implements InterestService {
 
   private final InterestRepository interestRepository;

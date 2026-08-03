@@ -3,19 +3,20 @@ package edu.cnm.deepdive.coffeeshop.controller;
 import edu.cnm.deepdive.coffeeshop.controller.api.FavoriteApi;
 import edu.cnm.deepdive.coffeeshop.model.dto.FavoriteRequestDto;
 import edu.cnm.deepdive.coffeeshop.model.dto.ShopDto;
-import edu.cnm.deepdive.coffeeshop.model.entity.Profile;
 import edu.cnm.deepdive.coffeeshop.service.ContextProfileService;
 import edu.cnm.deepdive.coffeeshop.service.FavoriteService;
 import edu.cnm.deepdive.coffeeshop.service.ProfileService;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.context.annotation.Profile;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Profile("service")
 public class FavoriteController implements FavoriteApi {
 
   private final FavoriteService favoriteService;
