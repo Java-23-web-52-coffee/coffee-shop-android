@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/sign-in")
+@RequestMapping("/apis/sign-in")
 @org.springframework.context.annotation.Profile("service")
 public class SignInController {
 
