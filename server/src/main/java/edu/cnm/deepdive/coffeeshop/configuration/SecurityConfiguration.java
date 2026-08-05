@@ -59,7 +59,7 @@ public class SecurityConfiguration {
         .authorizeHttpRequests(requests ->
             requests
 //                .requestMatchers(HttpMethod.GET, "/shops").anonymous()//Add additional paths as appropriate.
-                .requestMatchers(HttpMethod.POST, "/sign-up", "/sign-in", "/sign-out").permitAll()
+                .requestMatchers(HttpMethod.POST, "/apis/sign-up", "/apis/sign-in", "/apis/sign-out").permitAll()
                 .anyRequest().authenticated())
         .oauth2ResourceServer(resourceServer -> resourceServer
             .jwt(jwt -> jwt.jwtAuthenticationConverter(converter)))
