@@ -26,11 +26,11 @@
       />
 
     <TextView
-      android:id="@+id/longin_instructions"
+      android:id="@+id/sign_up_instructions"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
-      android:text="@string/sign_in_to_continue"
+      android:text="@string/sign_up_to_get_started"
       android:textSize="16sp"
       app:layout_constraintTop_toBottomOf="@id/title_text"
       app:layout_constraintStart_toStartOf="parent"
@@ -38,16 +38,36 @@
       />
 
     <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/name_layout"
+      style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="32dp"
+      android:hint="@string/full_name"
+      app:endIconMode="clear_text"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/sign_up_instructions"
+      >
+      <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/name_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
       android:id="@+id/email_layout"
       style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="48dp"
+      android:layout_marginTop="16dp"
       android:hint="@string/email_address"
       app:endIconMode="clear_text"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/longin_instructions"
+      app:layout_constraintTop_toBottomOf="@id/name_layout"
       >
       <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/email_input"
@@ -62,7 +82,7 @@
       style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="48dp"
+      android:layout_marginTop="16dp"
       android:hint="@string/password"
       app:endIconMode="clear_text"
       app:layout_constraintEnd_toEndOf="parent"
@@ -77,29 +97,49 @@
         />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-      android:id="@+id/login_button"
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/password_confirm_layout"
+      style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="32dp"
-      android:text="@string/sign_in"
-      android:textSize="16sp"
+      android:layout_marginTop="16dp"
+      android:hint="@string/confirm_password"
+      app:endIconMode="clear_text"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/password_layout"
+      >
+      <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/password_confirm_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+      android:id="@+id/sign_up_button"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="32dp"
+      android:text="@string/sign_up"
+      android:textSize="16sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/password_confirm_layout"
       />
 
     <TextView
-      android:id="@+id/sign_up_link"
+      android:id="@+id/sign_in_link"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
       android:clickable="true"
       android:focusable="true"
-      android:text="@string/dont_have_account"
+      android:text="@string/already_have_account"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/login_button"
+      app:layout_constraintTop_toBottomOf="@id/sign_up_button"
       />
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
