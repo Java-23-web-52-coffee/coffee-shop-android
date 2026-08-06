@@ -54,10 +54,9 @@ public class SignUpFragment extends Fragment {
       }
     });
 
-    viewModel.getSignedInProfile().observe(getViewLifecycleOwner(), (profile) -> {
+    viewModel.getCreatedProfile().observe(getViewLifecycleOwner(), (profile) -> {
       if (profile != null) {
-        NavHostFragment.findNavController(this)
-            .navigate(R.id.action_signUpFragment_to_loggedInFragment);
+        NavHostFragment.findNavController(this).popBackStack();
       }
     });
   }

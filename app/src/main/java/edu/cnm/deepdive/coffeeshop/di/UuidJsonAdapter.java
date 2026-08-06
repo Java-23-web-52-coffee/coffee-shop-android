@@ -5,9 +5,9 @@ import com.squareup.moshi.ToJson;
 import java.util.UUID;
 
 /**
- * Moshi has no built-in adapter for {@link UUID}, and DTOs across this app (e.g.
- * {@code ProfileDto}, {@code ShopDto}) declare {@code UUID} id fields, so this adapter is
- * registered globally on the shared {@code Moshi} instance in {@link NetworkModule}.
+ * Moshi has no built-in adapter for {@link UUID}, and generated DTOs across this app declare
+ * {@code UUID} id fields, so this adapter is registered globally on the shared {@code Moshi}
+ * instance in {@link NetworkModule}.
  */
 final class UuidJsonAdapter {
 

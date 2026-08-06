@@ -1,12 +1,13 @@
 package edu.cnm.deepdive.coffeeshop.di;
 
 import com.squareup.moshi.Moshi;
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory;
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
 import edu.cnm.deepdive.coffeeshop.repository.SessionManager;
-import edu.cnm.deepdive.coffeeshop.service.AuthApiService;
+import edu.cnm.deepdive.coffeeshop.service.openapi.AuthApi;
 import javax.inject.Singleton;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -30,6 +31,8 @@ public final class NetworkModule {
   static Moshi provideMoshi() {
     return new Moshi.Builder()
         .add(new UuidJsonAdapter())
+        .add(new OffsetDateTimeJsonAdapter())
+        .addLast(new KotlinJsonAdapterFactory())
         .build();
   }
 
@@ -64,8 +67,8 @@ public final class NetworkModule {
 
   @Provides
   @Singleton
-  static AuthApiService provideAuthApiService(Retrofit retrofit) {
-    return retrofit.create(AuthApiService.class);
+  static AuthApi provideAuthApi(Retrofit retrofit) {
+    return retrofit.create(AuthApi.class);
   }
 
 }
