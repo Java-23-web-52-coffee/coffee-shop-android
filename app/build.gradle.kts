@@ -41,6 +41,7 @@ openApiGenerate {
     outputDir.set(openApiOutputDirectory.get().asFile.absolutePath)
     apiPackage.set(project.property("openApiApiPackage") as String)
     modelPackage.set(project.property("openApiModelPackage") as String)
+    modelNameSuffix.set(project.property("openApiModelNameSuffix") as String)
     configOptions.set(
         mapOf(
             "serializationLibrary" to project.property("openApiSerializationLibrary") as String,
@@ -133,6 +134,7 @@ tasks.named("preBuild") {
 kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.valueOf("JVM_${libs.versions.java.get()}")
+        freeCompilerArgs.add("-Xannotation-default-target=param-property")
     }
 }
 
