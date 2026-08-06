@@ -8,6 +8,7 @@ import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
 import edu.cnm.deepdive.coffeeshop.repository.SessionManager;
 import edu.cnm.deepdive.coffeeshop.service.openapi.AuthApi;
+import edu.cnm.deepdive.coffeeshop.service.openapi.InterestApi;
 import javax.inject.Singleton;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -69,6 +70,12 @@ public final class NetworkModule {
   @Singleton
   static AuthApi provideAuthApi(Retrofit retrofit) {
     return retrofit.create(AuthApi.class);
+  }
+
+  @Provides
+  @Singleton
+  static InterestApi provideInterestApi(Retrofit retrofit) {
+    return retrofit.create(InterestApi.class);
   }
 
 }
