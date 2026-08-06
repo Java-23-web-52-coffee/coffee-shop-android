@@ -3,6 +3,7 @@ package edu.cnm.deepdive.coffeeshop.service
 import edu.cnm.deepdive.coffeeshop.model.domain.Profile
 import edu.cnm.deepdive.coffeeshop.model.domain.Shop
 import edu.cnm.deepdive.coffeeshop.repository.FavoriteRepository
+import edu.cnm.deepdive.coffeeshop.repository.InterestRepository
 import edu.cnm.deepdive.coffeeshop.repository.ProfileRepository
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
@@ -14,26 +15,27 @@ import kotlinx.coroutines.future.future
 @Singleton
 class ProfileService @Inject constructor(
     private val profileRepository: ProfileRepository,
-    private val favoriteRepository: FavoriteRepository
+    private val favoriteRepository: FavoriteRepository,
+    private val interestRepository: InterestRepository
 ) {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     fun getProfile() =
         scope.future {
-            getProfileWithFavorites()
+            getExtendedProfile()
         }
 
     fun addFavorite(shop: Shop) =
         scope.future {
             favoriteRepository.addFavorite(shop)
-            getProfileWithFavorites()
+            getExtendedProfile()
         }
 
     fun removeFavorite(shop: Shop) =
         scope.future {
             favoriteRepository.removeFavorite(shop)
-            getProfileWithFavorites()
+            getExtendedProfile()
         }
 
     fun updateProfile(profile: Profile) =
@@ -43,9 +45,10 @@ class ProfileService @Inject constructor(
             }
         }
 
-    private suspend fun getProfileWithFavorites(): Profile =
+    private suspend fun getExtendedProfile(): Profile =
         profileRepository.getProfile().also {
             refreshFavorites(it)
+            // TODO: Retrieve and add preferences.
         }
 
     private suspend fun refreshFavorites(profile: Profile) {
