@@ -15,3 +15,7 @@ The client will use retrofit and moshi with the okhttp loging interseptor to bui
 - If satisfying the above requirements dictates the separation of generation into multiple gradle tasks that is acceptable.
 
 - The generated proxy interfaces should use kotlin coroutines; These will be implemented using suspend functions.
+
+- Generated dto classes must have the "Dto" suffix.
+
+- If possible the build configuration must be adjusted so that moshi annotations on dataclass constructor parameters are applied to both the parameter and the property.
