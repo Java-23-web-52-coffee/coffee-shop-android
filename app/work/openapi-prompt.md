@@ -19,3 +19,11 @@ The client will use retrofit and moshi with the okhttp loging interseptor to bui
 - Generated dto classes must have the "Dto" suffix.
 
 - If possible the build configuration must be adjusted so that moshi annotations on dataclass constructor parameters are applied to both the parameter and the property.
+
+## Authentication 
+
+- An okhttp interceptor must be used to add `Authorization` headers to all requests. 
+
+## Repositories 
+
+- All repositories that implement the generated proxy interfaces must use kotlin coroutines and convert between dtos and domain classes.
