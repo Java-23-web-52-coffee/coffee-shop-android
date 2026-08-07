@@ -30,7 +30,7 @@ class RatingRepository @Inject constructor(private val ratingApi: RatingApi) {
         }
     }
 
-    suspend fun getRating(visit: Visit): List<RatingDto> {
+    suspend fun getRatings(visit: Visit): List<RatingDto> {
         ratingApi.listRatings(
             visitId = visit.id
         ).let {
@@ -42,17 +42,18 @@ class RatingRepository @Inject constructor(private val ratingApi: RatingApi) {
         }
     }
 
-    suspend fun updateRating(visit: Visit, ratingRequestDto: RatingRequestDto) {
-        ratingApi.updateRating(
-            visit.id, ratingRequestDto,
-            ratingUpdateRequestDto = RatingUpdateRequestDto(
-                value = ratingRequestDto.value
-            )
-        ).let {
-            if (!it.isSuccessful) {
-                throw ServiceException(it.errorBody()?.string() ?: "Unknown error")
-            }
-        }
-    }
+    // FIXME: Debug invalid generation of ratingApi
+//    suspend fun updateRating(visit: Visit, ratingRequestDto: RatingRequestDto) {
+//        ratingApi.updateRating(
+//            visit.id, ratingRequestDto,
+//            ratingUpdateRequestDto = RatingUpdateRequestDto(
+//                value = ratingRequestDto.value
+//            )
+//        ).let {
+//            if (!it.isSuccessful) {
+//                throw ServiceException(it.errorBody()?.string() ?: "Unknown error")
+//            }
+//        }
+//    }
 
 }

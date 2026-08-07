@@ -8,7 +8,15 @@ import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
 import edu.cnm.deepdive.coffeeshop.repository.SessionManager;
 import edu.cnm.deepdive.coffeeshop.service.openapi.AuthApi;
+import edu.cnm.deepdive.coffeeshop.service.openapi.FavoriteApi;
+import edu.cnm.deepdive.coffeeshop.service.openapi.HealthApi;
 import edu.cnm.deepdive.coffeeshop.service.openapi.InterestApi;
+import edu.cnm.deepdive.coffeeshop.service.openapi.MatchApi;
+import edu.cnm.deepdive.coffeeshop.service.openapi.PreferenceApi;
+import edu.cnm.deepdive.coffeeshop.service.openapi.ProfileApi;
+import edu.cnm.deepdive.coffeeshop.service.openapi.RatingApi;
+import edu.cnm.deepdive.coffeeshop.service.openapi.ShopApi;
+import edu.cnm.deepdive.coffeeshop.service.openapi.VisitApi;
 import javax.inject.Singleton;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -76,6 +84,54 @@ public final class NetworkModule {
   @Singleton
   static InterestApi provideInterestApi(Retrofit retrofit) {
     return retrofit.create(InterestApi.class);
+  }
+
+  @Provides
+  @Singleton
+  static ShopApi provideShopApi(Retrofit retrofit) {
+    return retrofit.create(ShopApi.class);
+  }
+
+  @Provides
+  @Singleton
+  static VisitApi provideVisitApi(Retrofit retrofit) {
+    return retrofit.create(VisitApi.class);
+  }
+
+  @Provides
+  @Singleton
+  static RatingApi provideRatingApi(Retrofit retrofit) {
+    return retrofit.create(RatingApi.class);
+  }
+
+  @Provides
+  @Singleton
+  static ProfileApi provideProfileApi(Retrofit retrofit) {
+    return retrofit.create(ProfileApi.class);
+  }
+
+  @Provides
+  @Singleton
+  static FavoriteApi provideFavoriteApi(Retrofit retrofit) {
+    return retrofit.create(FavoriteApi.class);
+  }
+
+  @Provides
+  @Singleton
+  static PreferenceApi providePreferenceApi(Retrofit retrofit) {
+    return retrofit.create(PreferenceApi.class);
+  }
+
+  @Provides
+  @Singleton
+  static MatchApi provideMatchApi(Retrofit retrofit) {
+    return retrofit.create(MatchApi.class);
+  }
+
+  @Provides
+  @Singleton
+  static HealthApi provideHealthApi(Retrofit retrofit) {
+    return retrofit.create(HealthApi.class);
   }
 
 }

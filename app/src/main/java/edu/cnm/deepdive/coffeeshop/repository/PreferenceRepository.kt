@@ -1,7 +1,6 @@
 package edu.cnm.deepdive.coffeeshop.repository
 
 import edu.cnm.deepdive.coffeeshop.model.domain.Interest
-import edu.cnm.deepdive.coffeeshop.model.domain.Preference
 import edu.cnm.deepdive.coffeeshop.model.dto.openapi.PreferenceDto
 import edu.cnm.deepdive.coffeeshop.model.dto.openapi.PreferenceRequestDto
 import edu.cnm.deepdive.coffeeshop.model.dto.openapi.PreferenceUpdateRequestDto
@@ -14,7 +13,7 @@ import kotlin.collections.emptyList
 @Singleton
 class PreferenceRepository @Inject constructor(private val preferenceApi: PreferenceApi) {
 
-    suspend fun getPreferences(): List<PreferenceDto> =
+    suspend fun getPreferences(interestId: Long): List<PreferenceDto> =
         preferenceApi.listMyPreferences().let {
             if (it.isSuccessful) {
                 it.body() ?: emptyList()
