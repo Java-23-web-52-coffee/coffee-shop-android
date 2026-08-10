@@ -40,6 +40,10 @@ public class LoggedInFragment extends Fragment {
 
     binding.welcomeText.setText(getString(R.string.welcome_message, sessionManager.getProfileName()));
 
+    binding.profileButton.setOnClickListener((v) ->
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.action_loggedInFragment_to_profilePage));
+
     binding.signOutButton.setOnClickListener((v) -> viewModel.signOut());
 
     viewModel.getSignedInProfile().observe(getViewLifecycleOwner(), (profile) -> {

@@ -7,13 +7,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import dagger.hilt.android.AndroidEntryPoint;
-import edu.cnm.deepdive.coffeeshop.databinding.FragmentProfileBinding;
 import edu.cnm.deepdive.coffeeshop.databinding.FragmentProfilePageBinding;
 import edu.cnm.deepdive.coffeeshop.databinding.ItemFavoriteShopBinding;
 import edu.cnm.deepdive.coffeeshop.model.domain.Shop;
@@ -30,7 +27,7 @@ public class ProfilePage extends Fragment {
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    binding = FragmentProfilePageBinding.inflate(inflater);
+    binding = FragmentProfilePageBinding.inflate(inflater, container, false);
     return binding.getRoot();
   }
 

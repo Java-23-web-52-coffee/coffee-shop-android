@@ -34,6 +34,9 @@
     android:name="edu.cnm.deepdive.coffeeshop.controller.LoggedInFragment"
     android:label="@string/signed_in_confirmation">
     <action
+      android:id="@+id/action_loggedInFragment_to_profilePage"
+      app:destination="@id/profilePage" />
+    <action
       android:id="@+id/action_loggedInFragment_to_signInFragment"
       app:destination="@id/signInFragment"
       app:popUpTo="@id/nav_graph"
@@ -41,18 +44,8 @@
   </fragment>
 
   <fragment
-    android:id="@+id/profile_page_Fragment"
+    android:id="@+id/profilePage"
     android:name="edu.cnm.deepdive.coffeeshop.ui.profile.ProfilePage"
-    android:label="@string/profile">
-    <action
-      android:id="@+id/action_profile_page_Fragment_to_signUpFragment"
-      app:destination="@id/signUpFragment"/>
-    <action
-      android:id="@+id/action_profile_page_Fragment_to_signInFragment"
-      app:destination="@id/signInFragment"/>
-    <action
-      android:id="@+id/action_profile_page_Fragment_to_loggedInFragment"
-      app:destination="@id/loggedInFragment"/>
-  </fragment>
+    android:label="@string/profile" />
 
 </navigation>
