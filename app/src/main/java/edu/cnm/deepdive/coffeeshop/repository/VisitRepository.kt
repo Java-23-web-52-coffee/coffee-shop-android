@@ -2,6 +2,7 @@ package edu.cnm.deepdive.coffeeshop.repository
 
 import edu.cnm.deepdive.coffeeshop.model.domain.Visit
 import edu.cnm.deepdive.coffeeshop.model.dto.openapi.VisitDto
+import edu.cnm.deepdive.coffeeshop.model.dto.openapi.VisitRequestDto
 import edu.cnm.deepdive.coffeeshop.service.openapi.VisitApi
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
@@ -11,7 +12,8 @@ import java.util.UUID
 class VisitRepository @Inject constructor(private val visitApi: VisitApi) {
 
     suspend fun createVisit(visit: Visit): VisitDto {
-        return visitApi.createVisit(visit).let {
+        val visitRequestDto = VisitRequestDto(visit.shop.id)
+        return visitApi.createVisit( visitRequestDto = visitRequestDto).let {
             if (it.isSuccessful) {
                 it.body() ?: throw ServiceException("Unexpected response")
             } else {

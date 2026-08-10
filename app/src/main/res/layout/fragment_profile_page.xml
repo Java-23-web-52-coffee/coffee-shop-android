@@ -5,6 +5,8 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:fitsSystemWindows="true"
+  android:layout_marginTop="86dp"
   android:fillViewport="true">
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,141 +21,120 @@
       android:layout_height="wrap_content"
       app:cardCornerRadius="16dp"
       app:cardElevation="2dp"
-      app:cardBackgroundColor="@android:color/white"
-      app:strokeWidth="0dp"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent">
+      app:layout_constraintTop_toTopOf="parent">
 
       <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <com.google.android.material.imageview.ShapeableImageView
-          android:id="@+id/imgProfile"
-          android:layout_width="64dp"
-          android:layout_height="64dp"
-          android:scaleType="centerCrop"
-          app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintBottom_toBottomOf="parent"
-          android:src="@drawable/outline_account_circle_24"/>
+        <ImageView
+          android:id="@+id/img_profile"
+          android:layout_width="48dp"
+          android:layout_height="48dp"
+          android:src="@drawable/outline_account_circle_24" />
 
         <TextView
-          android:id="@+id/tv_user_name"
+          android:id="@+id/text_name"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="16dp"
           android:text="Name"
-          android:textColor="@android:color/black"
           android:textSize="18sp"
           android:textStyle="bold"
-          app:layout_constraintStart_toEndOf="@id/imgProfile"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="@id/imgProfile" />
+          app:layout_constraintStart_toEndOf="@id/img_profile"
+          app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-          android:id="@+id/tv_user_email"
+          android:id="@+id/text_email"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="16dp"
-          android:layout_marginTop="4dp"
           android:text="Email"
-          android:textSize="14sp"
-          app:layout_constraintStart_toEndOf="@id/imgProfile"
+          android:textColor="?android:attr/textColorSecondary"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/tv_user_name" />
+          app:layout_constraintStart_toEndOf="@id/img_profile"
+          app:layout_constraintTop_toBottomOf="@id/text_name" />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Side-by-Side Container -->
-    <LinearLayout
-      android:id="@+id/container_columns"
+    <!-- Favorites Section Card -->
+    <com.google.android.material.card.MaterialCardView
+      android:id="@+id/card_favorites"
       android:layout_width="match_parent"
-      android:layout_height="0dp"
+      android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
-      android:orientation="horizontal"
-      android:baselineAligned="false"
-      app:layout_constraintTop_toBottomOf="@id/card_profile_header"
-      app:layout_constraintBottom_toBottomOf="parent"
+      app:cardCornerRadius="16dp"
+      app:cardElevation="2dp"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent">
+      app:layout_constraintTop_toBottomOf="@id/card_profile_header">
 
-      <!-- Left Box / Column -->
-      <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_left_column"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:layout_marginEnd="8dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="2dp"
-        app:cardBackgroundColor="@android:color/white"
-        app:strokeWidth="0dp">
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <LinearLayout
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="12dp"
+          android:text="Favorites"
+          android:textSize="18sp"
+          android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/rv_favorites"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:orientation="vertical"
-          android:padding="12dp">
+          android:layout_height="wrap_content"
+          android:nestedScrollingEnabled="false"
+          tools:itemCount="3"
+          tools:listitem="@layout/item_favorite_shop" />
 
-          <TextView
-            android:id="@+id/tv_left_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Favorites"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp" />
+      </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-          <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_favorites"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        </LinearLayout>
-      </com.google.android.material.card.MaterialCardView>
+    <!-- Visited Section Card -->
+    <com.google.android.material.card.MaterialCardView
+      android:id="@+id/card_visited"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      app:cardCornerRadius="16dp"
+      app:cardElevation="2dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/card_favorites">
 
-      <!-- Right Box / Column -->
-      <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_right_column"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:layout_marginStart="8dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="2dp"
-        app:cardBackgroundColor="@android:color/white"
-        app:strokeWidth="0dp">
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <LinearLayout
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="12dp"
+          android:text="Visited"
+          android:textSize="18sp"
+          android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/rv_visited"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:orientation="vertical"
-          android:padding="12dp">
+          android:layout_height="wrap_content"
+          android:nestedScrollingEnabled="false"
+          tools:itemCount="3"
+          tools:listitem="@layout/item_favorite_shop" />
 
-          <TextView
-            android:id="@+id/tv_right_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Visited"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp" />
-
-          <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_right_selections"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:nestedScrollingEnabled="true"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-        </LinearLayout>
-      </com.google.android.material.card.MaterialCardView>
-
-    </LinearLayout>
+      </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -6,14 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat.Type;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.Adapter;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import dagger.hilt.android.AndroidEntryPoint;
 import edu.cnm.deepdive.coffeeshop.databinding.FragmentProfilePageBinding;
 import edu.cnm.deepdive.coffeeshop.databinding.ItemFavoriteShopBinding;
 import edu.cnm.deepdive.coffeeshop.model.domain.Shop;
+import edu.cnm.deepdive.coffeeshop.ui.profile.ProfilePage.CoffeeShopAdapter.ShopViewHolder;
 import edu.cnm.deepdive.coffeeshop.viewmodel.ProfileViewModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,22 +27,35 @@ import java.util.List;
 public class ProfilePage extends Fragment {
 
   private FragmentProfilePageBinding binding;
+  private CoffeeShopAdapter favoritesAdapter;
+  private CoffeeShopAdapter visitedAdapter;
+  private ProfileViewModel viewModel;
 
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     binding = FragmentProfilePageBinding.inflate(inflater, container, false);
+    ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+      Insets systemBars = insets.getInsets(Type.systemBars());
+      v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+      return insets;
+    });
+
     return binding.getRoot();
   }
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    CoffeeShopAdapter adapter = new CoffeeShopAdapter();
-    ProfileViewModel viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+    favoritesAdapter = new CoffeeShopAdapter();
+    visitedAdapter = new CoffeeShopAdapter();
     binding.rvFavorites.setLayoutManager(new LinearLayoutManager(requireContext()));
-    binding.rvFavorites.setAdapter(adapter);
+    binding.rvFavorites.setAdapter(favoritesAdapter);
+    binding.rvVisited.setLayoutManager(new LinearLayoutManager(requireContext()));
+    binding.rvVisited.setAdapter(visitedAdapter);
+    viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+
   }
 
   @Override
@@ -46,12 +64,12 @@ public class ProfilePage extends Fragment {
     binding = null;
   }
 
-  private static class CoffeeShopAdapter extends RecyclerView.Adapter<CoffeeShopAdapter.ShopViewHolder> {
+  class CoffeeShopAdapter extends Adapter<ShopViewHolder> {
 
-    private List<Shop> favoriteShops = new ArrayList<>();
+    private List<Shop> shops = new ArrayList<>();
 
-    public void setFavoriteShops(List<Shop> shops) {
-      this.favoriteShops = shops;
+    public void setShops(List<Shop> shops) {
+      this.shops = shops;
       notifyDataSetChanged();
     }
 
@@ -66,16 +84,16 @@ public class ProfilePage extends Fragment {
 
     @Override
     public void onBindViewHolder(@NonNull ShopViewHolder holder, int position) {
-      Shop shop = favoriteShops.get(position);
-      holder.bind(shop);
+      Shop shop = shops.get(position);
     }
 
     @Override
     public int getItemCount() {
-      return favoriteShops != null ? favoriteShops.size() : 0;
+      return shops != null ? shops.size() : 0;
     }
 
-    static class ShopViewHolder extends RecyclerView.ViewHolder {
+    class ShopViewHolder extends ViewHolder {
+
       private final ItemFavoriteShopBinding itemBinding;
 
       public ShopViewHolder(@NonNull ItemFavoriteShopBinding itemBinding) {
@@ -83,10 +101,9 @@ public class ProfilePage extends Fragment {
         this.itemBinding = itemBinding;
       }
 
-      public void bind(Shop shop) {
-        itemBinding.textShopName.setText(shop.getName());
+      public String getName() {
+        return "";
       }
     }
   }
-
 }

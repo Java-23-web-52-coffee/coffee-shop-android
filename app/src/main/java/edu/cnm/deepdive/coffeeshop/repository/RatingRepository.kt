@@ -4,10 +4,10 @@ import edu.cnm.deepdive.coffeeshop.model.domain.Interest
 import edu.cnm.deepdive.coffeeshop.model.domain.Visit
 import edu.cnm.deepdive.coffeeshop.model.dto.openapi.RatingDto
 import edu.cnm.deepdive.coffeeshop.model.dto.openapi.RatingRequestDto
-import edu.cnm.deepdive.coffeeshop.model.dto.openapi.RatingUpdateRequestDto
 import edu.cnm.deepdive.coffeeshop.service.openapi.RatingApi
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
+
 
 @Singleton
 class RatingRepository @Inject constructor(private val ratingApi: RatingApi) {
@@ -40,6 +40,7 @@ class RatingRepository @Inject constructor(private val ratingApi: RatingApi) {
                 throw ServiceException(it.errorBody()?.string() ?: "Unknown error")
             }
         }
+
     }
 
     // FIXME: Debug invalid generation of ratingApi

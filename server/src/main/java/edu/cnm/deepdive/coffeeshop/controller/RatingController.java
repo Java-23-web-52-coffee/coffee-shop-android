@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Profile("service")
 public class RatingController implements RatingApi {
-  
+
   private final RatingService ratingService;
 
   public RatingController(RatingService ratingService) {
@@ -40,5 +40,9 @@ public class RatingController implements RatingApi {
   public ResponseEntity<RatingDto> updateRating(UUID visitId, UUID interestId,
       RatingUpdateRequestDto ratingUpdateRequestDto) {
     return null;
+  }
+
+  public RatingService getRatingService() {
+    return ratingService;
   }
 }
