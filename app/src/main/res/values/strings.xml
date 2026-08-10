@@ -25,4 +25,5 @@
   <string name="this_coffee_shop">This coffee shop....</string>
   <string name="title_name">Name</string>
   <string name="email_title">Email</string>
+  <string name="shop_feed">ShopFeed</string>
 </resources>

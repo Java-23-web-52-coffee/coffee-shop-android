@@ -3,7 +3,9 @@ package edu.cnm.deepdive.coffeeshop.ui.adapter;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+import edu.cnm.deepdive.coffeeshop.R;
 import edu.cnm.deepdive.coffeeshop.databinding.ItemShopCardBinding;
 import edu.cnm.deepdive.coffeeshop.model.domain.Shop;
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ public class ShopFeedAdapter extends RecyclerView.Adapter<ShopFeedAdapter.ShopVi
 
   class ShopViewHolder extends RecyclerView.ViewHolder {
     private final ItemShopCardBinding binding;
-    private boolean isFavorited = false;
+    private boolean isFavorite = false;
 
     public ShopViewHolder(@NonNull ItemShopCardBinding binding) {
       super(binding.getRoot());
@@ -56,17 +58,22 @@ public class ShopFeedAdapter extends RecyclerView.Adapter<ShopFeedAdapter.ShopVi
     }
 
     public void bind(Shop shop) {
-      binding.tvShopTitle.setText(shop.getName() != null ? shop.getName() : "Coffee Shop");
+      shop.getName();
+      binding.tvShopTitle.setText(shop.getName());
 
       // Favorite button toggle
       binding.btnFavorite.setOnClickListener(v -> {
-        isFavorited = !isFavorited;
+        isFavorite = !isFavorite;
         binding.btnFavorite.setImageResource(
-            isFavorited ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off
+            isFavorite ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off
         );
         if (favoriteClickListener != null) {
-          favoriteClickListener.onFavoriteClick(shop, isFavorited);
+          favoriteClickListener.onFavoriteClick(shop, isFavorite);
         }
+      });
+
+      binding.getRoot().setOnClickListener(v -> {
+        Navigation.findNavController(v).navigate(R.id.action_loggedInFragment_to_shopDetailFragment);
       });
     }
   }

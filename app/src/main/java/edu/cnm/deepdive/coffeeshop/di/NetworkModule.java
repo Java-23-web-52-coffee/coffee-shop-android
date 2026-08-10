@@ -30,7 +30,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 public final class NetworkModule {
 
   // TODO Point at the deployed server URL; this targets the emulator's host loopback.
-  private static final String BASE_URL = "http://10.46.2.17:8080/";
+  private static final String BASE_URL = "http://10.0.0.5:8080/";
 
   private NetworkModule() {
   }
