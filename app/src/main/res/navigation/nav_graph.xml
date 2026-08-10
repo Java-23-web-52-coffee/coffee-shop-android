@@ -58,4 +58,14 @@
     android:label="Shop Details"
     tools:layout="@layout/fragment_layout" />
 
+  <fragment
+    android:id="@+id/settingsfragment"
+    android:name="edu.cnm.deepdive.coffeeshop.controller.SettingsFragment"
+    android:label="@string/settings">
+    <action
+      android:id="@+id/action_settingsfragment_to_loggedInFragment"
+      app:popUpTo="@id/nav_graph"
+      app:popUpToInclusive="true" />
+  </fragment>
+
 </navigation>

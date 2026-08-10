@@ -26,4 +26,5 @@
   <string name="title_name">Name</string>
   <string name="email_title">Email</string>
   <string name="shop_feed">ShopFeed</string>
+  <string name="settings">Settings</string>
 </resources>

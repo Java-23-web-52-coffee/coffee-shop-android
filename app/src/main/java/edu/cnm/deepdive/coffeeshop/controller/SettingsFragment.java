@@ -16,7 +16,7 @@ public class SettingsFragment extends Fragment {
 
   private static final String PREFS_NAME = "coffee_shop_prefs";
   private static final String KEY_DARK_MODE = "key_dark_mode";
-  private static final String KEY_DAIRY_FREE = "key_dairy_free";
+  private static final String KEY_DISTANCE_UNIT = "key_distance_unit";
 
   private FragmentSettingsBinding binding;
   private SharedPreferences preferences;
@@ -36,10 +36,9 @@ public class SettingsFragment extends Fragment {
     preferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 
     boolean isDarkMode = preferences.getBoolean(KEY_DARK_MODE, false);
-    boolean isDairyFree = preferences.getBoolean(KEY_DAIRY_FREE, false);
+    boolean isDistanceUnit = preferences.getBoolean(KEY_DISTANCE_UNIT, false);
 
     binding.switchDarkMode.setChecked(isDarkMode);
-    binding.switchDairyFree.setChecked(isDairyFree);
     binding.switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
       preferences.edit().putBoolean(KEY_DARK_MODE, isChecked).apply();
       if (isChecked) {
@@ -48,8 +47,9 @@ public class SettingsFragment extends Fragment {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
       }
     });
-    binding.switchDairyFree.setOnCheckedChangeListener((buttonView, isChecked) -> {
-      preferences.edit().putBoolean(KEY_DAIRY_FREE, isChecked).apply();
+    binding.switchDistanceUnit.setChecked(isDistanceUnit);
+    binding.switchDistanceUnit.setOnCheckedChangeListener((buttonView, isChecked) -> {
+      preferences.edit().putBoolean(KEY_DISTANCE_UNIT, isChecked).apply();
     });
   }
 

@@ -58,15 +58,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:paddingVertical="8dp"
-      android:text="Use Metric System (km)"
-      android:textSize="16sp" />
-
-    <com.google.android.material.materialswitch.MaterialSwitch
-      android:id="@+id/switch_dairy_free"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:paddingVertical="8dp"
-      android:text="Highlight Dairy-Free Options"
+      android:text="Distance Unit: Miles"
       android:textSize="16sp" />
 
     <com.google.android.material.divider.MaterialDivider
