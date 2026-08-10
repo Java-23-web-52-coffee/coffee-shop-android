@@ -2,7 +2,6 @@ package edu.cnm.deepdive.coffeeshop.service
 
 import edu.cnm.deepdive.coffeeshop.model.domain.Interest
 import edu.cnm.deepdive.coffeeshop.model.domain.Visit
-import edu.cnm.deepdive.coffeeshop.model.dto.openapi.RatingDto
 import edu.cnm.deepdive.coffeeshop.model.dto.openapi.RatingRequestDto
 import edu.cnm.deepdive.coffeeshop.repository.RatingRepository
 import jakarta.inject.Inject
