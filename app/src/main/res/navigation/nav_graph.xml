@@ -3,7 +3,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/nav_graph"
-  app:startDestination="@id/loggedInFragment">
+  app:startDestination="@id/shopFeedFragment">
 
   <fragment
     android:id="@+id/signInFragment"
@@ -58,7 +58,7 @@
   <fragment
     android:id="@+id/shopFeedFragment"
     android:name="edu.cnm.deepdive.coffeeshop.controller.ShopFeedFragment"
-    android:label="Shop Details"
+    android:label="@string/home"
     tools:layout="@layout/fragment_shop_feed"/>
 
   <fragment

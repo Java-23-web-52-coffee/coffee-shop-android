@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
       navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
         int destinationId = destination.getId();
         boolean isTopLevelDestination = destinationId == R.id.loggedInFragment
+            || destinationId == R.id.shopFeedFragment
             || destinationId == R.id.profilePageFragment
             || destinationId == R.id.settingsFragment;
         binding.bottomNav.setVisibility(isTopLevelDestination ? View.VISIBLE : View.GONE);
