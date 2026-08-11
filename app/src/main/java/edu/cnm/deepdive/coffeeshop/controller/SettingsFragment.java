@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import edu.cnm.deepdive.coffeeshop.R;
 import edu.cnm.deepdive.coffeeshop.databinding.FragmentSettingsBinding;
 import javax.annotation.Nullable;
 
@@ -36,7 +37,7 @@ public class SettingsFragment extends Fragment {
     preferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 
     boolean isDarkMode = preferences.getBoolean(KEY_DARK_MODE, false);
-    boolean isDistanceUnit = preferences.getBoolean(KEY_DISTANCE_UNIT, false);
+    boolean useKilometers = preferences.getBoolean(KEY_DISTANCE_UNIT, false);
 
     binding.switchDarkMode.setChecked(isDarkMode);
     binding.switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -47,10 +48,19 @@ public class SettingsFragment extends Fragment {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
       }
     });
-    binding.switchDistanceUnit.setChecked(isDistanceUnit);
+    binding.switchDistanceUnit.setChecked(useKilometers);
+    updateDistanceUnitLabel(useKilometers);
     binding.switchDistanceUnit.setOnCheckedChangeListener((buttonView, isChecked) -> {
       preferences.edit().putBoolean(KEY_DISTANCE_UNIT, isChecked).apply();
+      updateDistanceUnitLabel(isChecked);
     });
+  }
+
+  private void updateDistanceUnitLabel(boolean useKilometers) {
+    int labelResourceId = useKilometers
+        ? R.string.distance_unit_kilometers
+        : R.string.distance_unit_miles;
+    binding.switchDistanceUnit.setText(labelResourceId);
   }
 
   @Override
