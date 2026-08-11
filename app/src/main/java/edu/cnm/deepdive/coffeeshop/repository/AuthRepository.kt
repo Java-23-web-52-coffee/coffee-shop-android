@@ -8,8 +8,8 @@ import edu.cnm.deepdive.coffeeshop.model.dto.openapi.PublicProfileDto
 import edu.cnm.deepdive.coffeeshop.model.dto.openapi.SignInRequestDto
 import edu.cnm.deepdive.coffeeshop.model.dto.openapi.SignUpRequestDto
 import edu.cnm.deepdive.coffeeshop.service.openapi.AuthApi
-import javax.inject.Inject
-import javax.inject.Singleton
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
 import kotlinx.coroutines.CancellationException
 import retrofit2.Response
 

@@ -17,7 +17,7 @@ import edu.cnm.deepdive.coffeeshop.service.openapi.ProfileApi;
 import edu.cnm.deepdive.coffeeshop.service.openapi.RatingApi;
 import edu.cnm.deepdive.coffeeshop.service.openapi.ShopApi;
 import edu.cnm.deepdive.coffeeshop.service.openapi.VisitApi;
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

@@ -7,12 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import dagger.hilt.android.AndroidEntryPoint;
 import edu.cnm.deepdive.coffeeshop.R;
 import edu.cnm.deepdive.coffeeshop.databinding.FragmentSettingsBinding;
-import javax.annotation.Nullable;
 
+
+@AndroidEntryPoint
 public class SettingsFragment extends Fragment {
 
   private static final String PREFS_NAME = "coffee_shop_prefs";

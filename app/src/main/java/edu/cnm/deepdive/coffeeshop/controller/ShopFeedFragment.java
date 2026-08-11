@@ -1,6 +1,8 @@
 package edu.cnm.deepdive.coffeeshop.controller;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,48 +10,47 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import edu.cnm.deepdive.coffeeshop.R;
-import edu.cnm.deepdive.coffeeshop.databinding.FragmentShopFeedBinding;
+import dagger.hilt.android.AndroidEntryPoint;
+import edu.cnm.deepdive.coffeeshop.adapter.ShopFeedAdapter;
+import edu.cnm.deepdive.coffeeshop.viewmodel.ShopViewModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import edu.cnm.deepdive.coffeeshop.R;
+import edu.cnm.deepdive.coffeeshop.databinding.FragmentShopFeedBinding;
 
+@AndroidEntryPoint
 public class ShopFeedFragment extends Fragment {
 
+  private static final String TAG = ShopFeedFragment.class.getSimpleName();
+
   private FragmentShopFeedBinding binding;
+  private ShopViewModel shopViewModel;
+  private ShopFeedAdapter adapter;
 
   @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-      @Nullable Bundle savedInstanceState) {
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     binding = FragmentShopFeedBinding.inflate(inflater, container, false);
+    adapter = new ShopFeedAdapter((shop, isFavorite) -> {
+      // TODO: 8/11/26 Invoke method in view model to change favorite status.
+      Log.d(TAG, "%1$s clicked; favorite = %2$b".formatted(shop, isFavorite));
+    });
+    binding.rvShopList.setAdapter(adapter);
     return binding.getRoot();
   }
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    binding.rvShopList.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-    List<Map<String, String>> shopList = new ArrayList<>();
-
-    Map<String, String> shop1 = new HashMap<>();
-    shop1.put("name", "Espresso Express");
-    shop1.put("description", "Local brews, cozy seating, and fresh pastries.");
-    shopList.add(shop1);
-
-    Map<String, String> shop2 = new HashMap<>();
-    shop2.put("name", "Bean & Brew");
-    shop2.put("description", "Artisanal roasts and organic teas.");
-    shopList.add(shop2);
-
-    Map<String, String> shop3 = new HashMap<>();
-    shop3.put("name", "Roast & Co.");
-    shop3.put("description", "Specialty espresso drinks and quiet study spots.");
-    shopList.add(shop3);
+    shopViewModel = new ViewModelProvider(requireActivity()).get(ShopViewModel.class);
+    shopViewModel.getShops()
+        .observe(getViewLifecycleOwner(), adapter::setShops);
   }
 
   @Override
@@ -58,7 +59,10 @@ public class ShopFeedFragment extends Fragment {
     binding = null;
   }
 
-  class QuickShopAdapter extends RecyclerView.Adapter<QuickShopAdapter.ViewHolder> {
+  // =========================================================================
+  // Inner Adapter Class (nested safely inside ShopFeedFragment)
+  // =========================================================================
+  private static class QuickShopAdapter extends RecyclerView.Adapter<QuickShopAdapter.ViewHolder> {
 
     private final List<Map<String, String>> shops;
 
@@ -77,31 +81,31 @@ public class ShopFeedFragment extends Fragment {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
       Map<String, String> shop = shops.get(position);
-      if (holder.tvName != null) {
+
+      if (holder.tvName != null && shop.containsKey("name")) {
         holder.tvName.setText(shop.get("name"));
       }
-      if (holder.tvDescription != null) {
+      if (holder.tvDescription != null && shop.containsKey("description")) {
         holder.tvDescription.setText(shop.get("description"));
       }
     }
 
     @Override
     public int getItemCount() {
-      return shops.size();
+      return shops != null ? shops.size() : 0;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-
       TextView tvName;
       TextView tvDescription;
 
+      @SuppressLint("WrongViewCast")
       public ViewHolder(@NonNull View itemView) {
         super(itemView);
-        tvName = itemView.findViewById(R.id.nav_graph);
-        tvDescription = itemView.findViewById(R.id.nav_graph);
+        // Make sure these IDs match what is inside item_shop_card.xml
+        tvName = itemView.findViewById(R.id.ivShopImage);
+        tvDescription = itemView.findViewById(R.id.tvShopDescription);
       }
     }
   }
-
 }
-

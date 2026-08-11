@@ -3,8 +3,8 @@ package edu.cnm.deepdive.coffeeshop.service
 import edu.cnm.deepdive.coffeeshop.model.domain.Profile
 import edu.cnm.deepdive.coffeeshop.repository.AuthRepository
 import java.util.concurrent.CompletableFuture
-import javax.inject.Inject
-import javax.inject.Singleton
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

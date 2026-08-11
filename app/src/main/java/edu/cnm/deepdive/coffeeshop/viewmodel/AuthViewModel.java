@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.CopyOnWriteArrayList;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 /**
  * Shared by {@code SignInFragment} and {@code SignUpFragment} — both screens only differ in

@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.coffeeshop.controller;
+package edu.cnm.deepdive.coffeeshop.adapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -9,10 +9,8 @@ import edu.cnm.deepdive.coffeeshop.model.domain.Shop;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopFeedAdapter extends RecyclerView.Adapter<ShopFeedAdapter.ShopViewHolder> {
-  public interface OnFavoriteClickListener {
-    void onFavoriteClick(Shop shop, boolean isFavorite);
-  }
+public class ShopFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
 
   private List<Shop> shops = new ArrayList<>();
   private final OnFavoriteClickListener favoriteClickListener;
@@ -28,7 +26,7 @@ public class ShopFeedAdapter extends RecyclerView.Adapter<ShopFeedAdapter.ShopVi
 
   @NonNull
   @Override
-  public ShopViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+  public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     ItemShopCardBinding binding = ItemShopCardBinding.inflate(
         LayoutInflater.from(parent.getContext()), parent, false
     );
@@ -36,8 +34,8 @@ public class ShopFeedAdapter extends RecyclerView.Adapter<ShopFeedAdapter.ShopVi
   }
 
   @Override
-  public void onBindViewHolder(@NonNull ShopViewHolder holder, int position) {
-    holder.bind(shops.get(position));
+  public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    ((ShopViewHolder) holder).bind(shops.get(position));
   }
 
   @Override
@@ -46,8 +44,8 @@ public class ShopFeedAdapter extends RecyclerView.Adapter<ShopFeedAdapter.ShopVi
   }
 
   class ShopViewHolder extends RecyclerView.ViewHolder {
+
     private final ItemShopCardBinding binding;
-    private boolean isFavorite = false;
 
     public ShopViewHolder(@NonNull ItemShopCardBinding binding) {
       super(binding.getRoot());
@@ -55,20 +53,25 @@ public class ShopFeedAdapter extends RecyclerView.Adapter<ShopFeedAdapter.ShopVi
     }
 
     public void bind(Shop shop) {
-      shop.getName();
       binding.tvShopTitle.setText(shop.getName());
-
+      // TODO: 8/11/26 Set the contents of remaining view widgets from the shop object.
+      binding.btnFavorite.setImageResource(shop.isFavorite() ? android.R.drawable.btn_star_big_on
+          : android.R.drawable.btn_star_big_off);
       // Favorite button toggle
-      binding.btnFavorite.setOnClickListener(v -> {
-        isFavorite = !isFavorite;
+      binding.btnFavorite.setOnClickListener(_ -> {
+        shop.setFavorite(!shop.isFavorite());
         binding.btnFavorite.setImageResource(
-            isFavorite ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off
+          shop.isFavorite() ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off
         );
         if (favoriteClickListener != null) {
-          favoriteClickListener.onFavoriteClick(shop, isFavorite);
+          favoriteClickListener.onFavoriteClick(shop, shop.isFavorite());
         }
       });
-
     }
+  }
+
+  public interface OnFavoriteClickListener {
+
+    void onFavoriteClick(Shop shop, boolean isFavorite);
   }
 }

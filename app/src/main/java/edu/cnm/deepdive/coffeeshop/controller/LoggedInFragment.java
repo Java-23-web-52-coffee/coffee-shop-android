@@ -14,7 +14,7 @@ import edu.cnm.deepdive.coffeeshop.R;
 import edu.cnm.deepdive.coffeeshop.databinding.FragmentLoggedInBinding;
 import edu.cnm.deepdive.coffeeshop.repository.SessionManager;
 import edu.cnm.deepdive.coffeeshop.viewmodel.AuthViewModel;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 @AndroidEntryPoint
 public class LoggedInFragment extends Fragment {

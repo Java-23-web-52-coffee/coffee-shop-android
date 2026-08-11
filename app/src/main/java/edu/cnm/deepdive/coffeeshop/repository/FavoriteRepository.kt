@@ -3,7 +3,6 @@ package edu.cnm.deepdive.coffeeshop.repository
 import edu.cnm.deepdive.coffeeshop.model.conversion.toShop
 import edu.cnm.deepdive.coffeeshop.model.domain.Shop
 import edu.cnm.deepdive.coffeeshop.model.dto.openapi.FavoriteRequestDto
-import edu.cnm.deepdive.coffeeshop.model.dto.openapi.ShopDto
 import edu.cnm.deepdive.coffeeshop.service.openapi.FavoriteApi
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
