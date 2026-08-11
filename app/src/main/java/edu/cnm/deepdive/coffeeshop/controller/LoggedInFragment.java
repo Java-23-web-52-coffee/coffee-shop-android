@@ -51,7 +51,16 @@ public class LoggedInFragment extends Fragment {
         NavHostFragment.findNavController(this)
             .navigate(R.id.action_loggedInFragment_to_signInFragment);
       }
+
+      viewModel.getLoading().observe(getViewLifecycleOwner(), loading -> {
+        if (loading != null) {
+          NavHostFragment.findNavController(this)
+              .navigate(R.id.action.loggedInFragment_to_shop);
+        }
+      })
     });
+
+    binding.shopList.setAdapter(new ShopFeedAdapter((shop, isFavorite) -> {}));
   }
 
   @Override
