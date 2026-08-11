@@ -33,28 +33,23 @@ public class ProfilePage extends Fragment {
 
   @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-      @Nullable Bundle savedInstanceState) {
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     binding = FragmentProfilePageBinding.inflate(inflater, container, false);
-    ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-      Insets systemBars = insets.getInsets(Type.systemBars());
-      v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-      return insets;
-    });
-
     return binding.getRoot();
   }
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+    viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+    binding.rvFavorites.setLayoutManager(new LinearLayoutManager(requireContext()));
+    binding.rvVisited.setLayoutManager(new LinearLayoutManager(requireContext()));
     favoritesAdapter = new CoffeeShopAdapter();
     visitedAdapter = new CoffeeShopAdapter();
-    binding.rvFavorites.setLayoutManager(new LinearLayoutManager(requireContext()));
+
     binding.rvFavorites.setAdapter(favoritesAdapter);
-    binding.rvVisited.setLayoutManager(new LinearLayoutManager(requireContext()));
     binding.rvVisited.setAdapter(visitedAdapter);
-    viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+
 
   }
 

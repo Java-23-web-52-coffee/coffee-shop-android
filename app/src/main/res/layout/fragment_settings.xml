@@ -48,7 +48,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="8dp"
-      android:text="Discovery &amp; Search"
+      android:text="Distance"
       android:textColor="?attr/colorPrimary"
       android:textSize="14sp"
       android:textStyle="bold" />
@@ -66,6 +66,22 @@
       android:layout_height="wrap_content"
       android:layout_marginVertical="16dp" />
 
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Account"
+      android:textColor="?attr/colorPrimary"
+      android:textSize="14sp"
+      android:textStyle="bold"
+      android:layout_marginBottom="8dp" />
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/btn_sign_out"
+      style="@style/Widget.Material3.Button.TonalButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Sign Out"
+      app:icon="@android:drawable/ic_lock_power_off" />
 
     <com.google.android.material.divider.MaterialDivider
       android:layout_width="match_parent"

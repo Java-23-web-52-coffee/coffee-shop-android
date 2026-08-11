@@ -6,7 +6,6 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:fitsSystemWindows="true"
-  android:layout_marginTop="86dp"
   android:fillViewport="true">
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,18 +29,24 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <ImageView
+        <ImageButton
           android:id="@+id/img_profile"
           android:layout_width="48dp"
           android:layout_height="48dp"
-          android:src="@drawable/outline_account_circle_24" />
+          android:src="@drawable/outline_account_circle_24"
+          android:contentDescription="Profile Picture"
+          android:background="?attr/selectableItemBackgroundBorderless"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent" />
+
 
         <TextView
           android:id="@+id/text_name"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="16dp"
-          android:text="Name"
+          android:text="Jazzmine"
           android:textSize="18sp"
           android:textStyle="bold"
           app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +58,7 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="16dp"
-          android:text="Email"
+          android:text="jazzscott76@gmail.com"
           android:textColor="?android:attr/textColorSecondary"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/img_profile"
@@ -132,6 +137,23 @@
           android:nestedScrollingEnabled="false"
           tools:itemCount="3"
           tools:listitem="@layout/item_favorite_shop" />
+
+        <!-- Visited RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/rvVisited"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+          tools:listitem="@layout/item_favorite_shop"
+          tools:itemCount="3" />
+
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/rvFavorites"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:nestedScrollingEnabled="true"
+          tools:listitem="@layout/item_favorite_shop"
+          tools:itemCount="3" />
 
       </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
