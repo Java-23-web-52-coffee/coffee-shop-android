@@ -3,15 +3,11 @@ package edu.cnm.deepdive.coffeeshop.controller;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
-import edu.cnm.deepdive.coffeeshop.R;
 import edu.cnm.deepdive.coffeeshop.databinding.ItemShopCardBinding;
 import edu.cnm.deepdive.coffeeshop.model.domain.Shop;
 import java.util.ArrayList;
 import java.util.List;
-
-
 public class ShopFeedAdapter extends RecyclerView.Adapter<ShopFeedAdapter.ShopViewHolder> {
   public interface OnFavoriteClickListener {
     void onFavoriteClick(Shop shop, boolean isFavorite);
@@ -72,9 +68,6 @@ public class ShopFeedAdapter extends RecyclerView.Adapter<ShopFeedAdapter.ShopVi
         }
       });
 
-      binding.getRoot().setOnClickListener(v -> {
-        Navigation.findNavController(v).navigate(R.id.action_loggedInFragment_to_shopDetailFragment);
-      });
     }
   }
 }

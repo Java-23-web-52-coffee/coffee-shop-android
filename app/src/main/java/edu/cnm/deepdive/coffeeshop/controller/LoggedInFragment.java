@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import dagger.hilt.android.AndroidEntryPoint;
 import edu.cnm.deepdive.coffeeshop.R;
 import edu.cnm.deepdive.coffeeshop.databinding.FragmentLoggedInBinding;
@@ -24,6 +25,7 @@ public class LoggedInFragment extends Fragment {
 
   private FragmentLoggedInBinding binding;
   private AuthViewModel viewModel;
+  private ShopFeedAdapter shopFeedAdapter;
 
   @Nullable
   @Override
@@ -51,16 +53,11 @@ public class LoggedInFragment extends Fragment {
         NavHostFragment.findNavController(this)
             .navigate(R.id.action_loggedInFragment_to_signInFragment);
       }
-
-      viewModel.getLoading().observe(getViewLifecycleOwner(), loading -> {
-        if (loading != null) {
-          NavHostFragment.findNavController(this)
-              .navigate(R.id.action.loggedInFragment_to_shop);
-        }
-      })
     });
 
-    binding.shopList.setAdapter(new ShopFeedAdapter((shop, isFavorite) -> {}));
+    shopFeedAdapter = new ShopFeedAdapter((shop, isFavorite) -> {});
+    binding.shopList.setLayoutManager(new LinearLayoutManager(requireContext()));
+    binding.shopList.setAdapter(shopFeedAdapter);
   }
 
   @Override
