@@ -8,6 +8,7 @@ import edu.cnm.deepdive.coffeeshop.databinding.ItemShopCardBinding;
 import edu.cnm.deepdive.coffeeshop.model.domain.Shop;
 import java.util.ArrayList;
 import java.util.List;
+
 public class ShopFeedAdapter extends RecyclerView.Adapter<ShopFeedAdapter.ShopViewHolder> {
   public interface OnFavoriteClickListener {
     void onFavoriteClick(Shop shop, boolean isFavorite);
