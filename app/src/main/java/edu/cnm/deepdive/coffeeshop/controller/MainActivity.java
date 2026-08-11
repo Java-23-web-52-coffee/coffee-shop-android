@@ -28,10 +28,11 @@ public class MainActivity extends AppCompatActivity {
     } else {
       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
+
     super.onCreate(savedInstanceState);
+
     binding = ActivityMainBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
-
     NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
         .findFragmentById(R.id.nav_graph);
 
