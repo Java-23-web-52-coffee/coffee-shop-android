@@ -3,6 +3,7 @@ package edu.cnm.deepdive.coffeeshop.controller;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
@@ -34,11 +35,18 @@ public class MainActivity extends AppCompatActivity {
     binding = ActivityMainBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
     NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
-        .findFragmentById(R.id.nav_graph);
+        .findFragmentById(R.id.nav_host_fragment);
 
     if (navHostFragment != null) {
       NavController navController = navHostFragment.getNavController();
       NavigationUI.setupWithNavController(binding.bottomNav, navController);
+      navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+        int destinationId = destination.getId();
+        boolean isTopLevelDestination = destinationId == R.id.loggedInFragment
+            || destinationId == R.id.profilePageFragment
+            || destinationId == R.id.settingsFragment;
+        binding.bottomNav.setVisibility(isTopLevelDestination ? View.VISIBLE : View.GONE);
+      });
     }
   }
 
