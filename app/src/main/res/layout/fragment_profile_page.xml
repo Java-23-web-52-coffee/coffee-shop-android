@@ -94,7 +94,7 @@
           android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/rv_favorites"
+          android:id="@+id/rvFavorites"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:nestedScrollingEnabled="false"
@@ -131,30 +131,12 @@
           android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/rv_visited"
+          android:id="@+id/rvVisited"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:nestedScrollingEnabled="false"
           tools:itemCount="3"
           tools:listitem="@layout/item_favorite_shop" />
-
-        <!-- Visited RecyclerView -->
-        <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/rvVisited"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-          tools:listitem="@layout/item_favorite_shop"
-          tools:itemCount="3" />
-
-        <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/rvFavorites"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:nestedScrollingEnabled="true"
-          tools:listitem="@layout/item_favorite_shop"
-          tools:itemCount="3" />
-
 
       </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
