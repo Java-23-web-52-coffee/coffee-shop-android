@@ -3,21 +3,26 @@ package edu.cnm.deepdive.coffeeshop.controller;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import dagger.hilt.android.AndroidEntryPoint;
 import edu.cnm.deepdive.coffeeshop.R;
 import edu.cnm.deepdive.coffeeshop.databinding.ActivityMainBinding;
+import edu.cnm.deepdive.coffeeshop.viewmodel.AuthViewModel;
 import java.util.Objects;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
   private ActivityMainBinding binding;
+  private NavController navController;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +52,10 @@ public class MainActivity extends AppCompatActivity {
             || destinationId == R.id.profilePageFragment
             || destinationId == R.id.settingsFragment;
         binding.bottomNav.setVisibility(isTopLevelDestination ? View.VISIBLE : View.GONE);
+
       });
     }
   }
+
 
 }
