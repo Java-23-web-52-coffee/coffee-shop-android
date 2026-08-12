@@ -2,11 +2,10 @@ package edu.cnm.deepdive.coffeeshop.repository
 
 import edu.cnm.deepdive.coffeeshop.model.conversion.toShop
 import edu.cnm.deepdive.coffeeshop.model.domain.Shop
-import edu.cnm.deepdive.coffeeshop.model.dto.openapi.ShopDto
 import edu.cnm.deepdive.coffeeshop.service.openapi.ShopApi
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
-import java.util.UUID
+import java.util.*
 
 @Singleton
 class ShopRepository @Inject constructor(private val shopApi: ShopApi) {

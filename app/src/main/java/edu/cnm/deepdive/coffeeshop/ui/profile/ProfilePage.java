@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import dagger.hilt.android.AndroidEntryPoint;
 import edu.cnm.deepdive.coffeeshop.adapter.ShopFeedAdapter;
 import edu.cnm.deepdive.coffeeshop.databinding.FragmentProfilePageBinding;
+import edu.cnm.deepdive.coffeeshop.model.domain.Profile;
+import edu.cnm.deepdive.coffeeshop.model.domain.Visit;
 import edu.cnm.deepdive.coffeeshop.viewmodel.ProfileViewModel;
 
 @AndroidEntryPoint
@@ -33,8 +35,9 @@ public class ProfilePage extends Fragment {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
-    binding.rvFavorites.setLayoutManager(new LinearLayoutManager(requireContext()));
-    binding.rvVisited.setLayoutManager(new LinearLayoutManager(requireContext()));
+    binding.rvFavorites.setLayoutManager(
+        new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+    );    binding.rvVisited.setLayoutManager(new LinearLayoutManager(requireContext()));
     favoritesAdapter = new ShopFeedAdapter((shop, isFavorite) -> {
       viewModel.setFavorite(shop, isFavorite);
     });
@@ -47,9 +50,10 @@ public class ProfilePage extends Fragment {
     viewModel.getProfile().observe(getViewLifecycleOwner(), (profile) -> {
       binding.textName.setText(profile.getName());
       favoritesAdapter.setShops(profile.getFavorites());
-      visitedAdapter.setShops(profile.getVisits().stream().map((visit) -> visit.getShop()).toList());
-    });
-  }
+      visitedAdapter.setShops(
+          profile.getVisits().stream().map(Visit::getShop).toList());
+      viewModel.getProfile().observe(getViewLifecycleOwner(), this::adapter);
+    });};
 
   @Override
   public void onDestroyView() {
@@ -57,4 +61,18 @@ public class ProfilePage extends Fragment {
     binding = null;
   }
 
+  private void adapter(Profile profile) {
+    if (profile != null) {
+      profile.getName();
+      binding.textName.setText(profile.getName());
+      profile.getFavorites();
+      favoritesAdapter.setShops(profile.getFavorites());
+      profile.getVisits();
+      visitedAdapter.setShops(
+          profile.getVisits().stream()
+              .map(Visit::getShop)
+              .toList()
+      );
+    }
+  }
 }

@@ -155,6 +155,7 @@
           tools:listitem="@layout/item_favorite_shop"
           tools:itemCount="3" />
 
+
       </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 

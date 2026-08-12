@@ -6,14 +6,19 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 import androidx.lifecycle.ViewModel;
 import edu.cnm.deepdive.coffeeshop.model.domain.Profile;
 import edu.cnm.deepdive.coffeeshop.model.domain.Shop;
+import edu.cnm.deepdive.coffeeshop.model.domain.Visit;
 import edu.cnm.deepdive.coffeeshop.service.ProfileService;
 import jakarta.inject.Inject;
+import java.util.List;
+import java.util.UUID;
 
 @HiltViewModel
 public class ProfileViewModel extends ViewModel {
 
   private final ProfileService profileService;
   private final MutableLiveData<Profile> profile = new MutableLiveData<>();
+
+
 
   @Inject
   public ProfileViewModel(ProfileService profileService) {
@@ -43,3 +48,5 @@ public class ProfileViewModel extends ViewModel {
   }
 
 }
+
+
