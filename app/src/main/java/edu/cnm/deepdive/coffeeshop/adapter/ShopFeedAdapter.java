@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import edu.cnm.deepdive.coffeeshop.R;
 import edu.cnm.deepdive.coffeeshop.databinding.ItemShopCardBinding;
 import edu.cnm.deepdive.coffeeshop.model.domain.Shop;
 import java.util.ArrayList;
@@ -55,6 +56,8 @@ public class ShopFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void bind(Shop shop) {
       binding.tvShopTitle.setText(shop.getName());
       binding.tvShopDescription.setText(shop.getAddress() == null ? "" : shop.getAddress());
+      binding.ivShopImage.setImageResource(
+          shop.getImageResourceId() != 0 ? shop.getImageResourceId() : R.drawable.coffee_shop);
       binding.btnFavorite.setImageResource(shop.isFavorite() ? android.R.drawable.btn_star_big_on
           : android.R.drawable.btn_star_big_off);
       // Favorite button toggle

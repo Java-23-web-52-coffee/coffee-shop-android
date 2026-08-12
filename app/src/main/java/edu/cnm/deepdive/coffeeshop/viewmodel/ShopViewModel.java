@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import edu.cnm.deepdive.coffeeshop.R;
 import edu.cnm.deepdive.coffeeshop.model.domain.Shop;
 import edu.cnm.deepdive.coffeeshop.service.ShopService;
 import java.util.List;
@@ -32,30 +33,30 @@ public class ShopViewModel extends ViewModel {
             UUID.randomUUID(),
             "Average coffee shop",
             null, null, null, null, null, null,
-            true
+            true, R.drawable.coffee
         ), new Shop(
             UUID.randomUUID(),
             "Espresso Express",
             null, null, null, null, null, null,
-            false
+            false, R.drawable.coffee_shop
         ),
         new Shop(
             UUID.randomUUID(),
             "Bean & Brew",
             null, null, null, null, null, null,
-            true
+            true, R.drawable.coffee_shop_3
         ),
         new Shop(
             UUID.randomUUID(),
             "Roast & Co.",
             null, null, null, null, null, null,
-            false
+            false, R.drawable.coffee_shop_4
         ),
         new Shop(
             UUID.randomUUID(),
             "The Daily Grind",
             null, null, null, null, null, null,
-            true
+            true, R.drawable.coffee_shop
         )
     );
   }

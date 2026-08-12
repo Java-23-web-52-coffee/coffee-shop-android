@@ -12,7 +12,7 @@ data class Shop (
     val lng: Double? = null,
     val phone: String? = null,
     val imageUrl: URI? = null,
-    var isFavorite: Boolean = false
+    var isFavorite: Boolean = false,
+    val imageResourceId: Int = 0
 )
-
 
