@@ -54,7 +54,7 @@ public class ShopFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public void bind(Shop shop) {
       binding.tvShopTitle.setText(shop.getName());
-      // TODO: 8/11/26 Set the contents of remaining view widgets from the shop object.
+      binding.tvShopDescription.setText(shop.getAddress() == null ? "" : shop.getAddress());
       binding.btnFavorite.setImageResource(shop.isFavorite() ? android.R.drawable.btn_star_big_on
           : android.R.drawable.btn_star_big_off);
       // Favorite button toggle

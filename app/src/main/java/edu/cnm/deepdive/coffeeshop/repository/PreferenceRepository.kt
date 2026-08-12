@@ -13,7 +13,7 @@ import kotlin.collections.emptyList
 @Singleton
 class PreferenceRepository @Inject constructor(private val preferenceApi: PreferenceApi) {
 
-    suspend fun getPreferences(interestId: Long): List<PreferenceDto> =
+    suspend fun getPreferences(): List<PreferenceDto> =
         preferenceApi.listMyPreferences().let {
             if (it.isSuccessful) {
                 it.body() ?: emptyList()

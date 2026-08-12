@@ -28,7 +28,7 @@ class VisitDetailsRepository @Inject constructor(
     private suspend fun VisitDto.toVisit(): Visit =
         Visit(
             id = id,
-            shop = shopRepository.getShop(id),
+            shop = shopRepository.getShop(shopId),
             date = this.createdAt,
         ).also {
             it.ratings.clear()

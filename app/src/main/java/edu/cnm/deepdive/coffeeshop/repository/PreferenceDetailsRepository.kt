@@ -13,8 +13,8 @@ class PreferenceDetailsRepository @Inject constructor(
     private val interestRepository: InterestRepository
 ) {
 
-    suspend fun getPreferenceDetails(interestId: Long): List<Preference> {
-        return preferenceRepository.getPreferences(interestId).map { it.toPreference() }
+    suspend fun getPreferenceDetails(): List<Preference> {
+        return preferenceRepository.getPreferences().map { it.toPreference() }
     }
 
     suspend fun addPreferenceDetails(interest: Interest, importance: BigDecimal): Preference {

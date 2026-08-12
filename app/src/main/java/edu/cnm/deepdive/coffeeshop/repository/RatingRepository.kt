@@ -4,9 +4,11 @@ import edu.cnm.deepdive.coffeeshop.model.domain.Interest
 import edu.cnm.deepdive.coffeeshop.model.domain.Visit
 import edu.cnm.deepdive.coffeeshop.model.dto.openapi.RatingDto
 import edu.cnm.deepdive.coffeeshop.model.dto.openapi.RatingRequestDto
+import edu.cnm.deepdive.coffeeshop.model.dto.openapi.RatingUpdateRequestDto
 import edu.cnm.deepdive.coffeeshop.service.openapi.RatingApi
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
+import java.math.BigDecimal
 
 
 @Singleton
@@ -43,18 +45,18 @@ class RatingRepository @Inject constructor(private val ratingApi: RatingApi) {
 
     }
 
-    // FIXME: Debug invalid generation of ratingApi
-//    suspend fun updateRating(visit: Visit, ratingRequestDto: RatingRequestDto) {
-//        ratingApi.updateRating(
-//            visit.id, ratingRequestDto,
-//            ratingUpdateRequestDto = RatingUpdateRequestDto(
-//                value = ratingRequestDto.value
-//            )
-//        ).let {
-//            if (!it.isSuccessful) {
-//                throw ServiceException(it.errorBody()?.string() ?: "Unknown error")
-//            }
-//        }
-//    }
+    suspend fun updateRating(visit: Visit, interest: Interest, value: BigDecimal): RatingDto {
+        return ratingApi.updateRating(
+            visitId = visit.id,
+            interestId = interest.id,
+            ratingUpdateRequestDto = RatingUpdateRequestDto(value)
+        ).let {
+            if (it.isSuccessful) {
+                it.body() ?: throw ServiceException("Unexpected response")
+            } else {
+                throw ServiceException(it.errorBody()?.string() ?: "Unknown error")
+            }
+        }
+    }
 
 }

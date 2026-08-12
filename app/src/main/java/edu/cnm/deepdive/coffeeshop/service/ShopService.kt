@@ -20,7 +20,7 @@ class ShopService @Inject constructor(
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-    suspend fun getShop(id: UUID) =
+    fun getShop(id: UUID) =
         scope.future {
             shopRepository.getShop(id)
                 .apply {
@@ -28,7 +28,7 @@ class ShopService @Inject constructor(
                 }
         }
 
-    suspend fun getShops(): CompletableFuture<List<Shop>> =
+    fun getShops(): CompletableFuture<List<Shop>> =
         scope.future {
             val favoriteIds = favoriteRepository.getFavorites().map { it.id }.toSet()
             shopRepository.getShops().map { shop ->
@@ -36,5 +36,15 @@ class ShopService @Inject constructor(
                     isFavorite = id in favoriteIds
                 }
             }
+        }
+
+    fun addFavorite(shop: Shop) =
+        scope.future {
+            favoriteRepository.addFavorite(shop)
+        }
+
+    fun removeFavorite(shop: Shop) =
+        scope.future {
+            favoriteRepository.removeFavorite(shop)
         }
 }

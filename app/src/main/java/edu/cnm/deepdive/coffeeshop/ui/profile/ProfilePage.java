@@ -1,7 +1,6 @@
 package edu.cnm.deepdive.coffeeshop.ui.profile;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import edu.cnm.deepdive.coffeeshop.viewmodel.ProfileViewModel;
 @AndroidEntryPoint
 public class ProfilePage extends Fragment {
 
-  private static final String TAG = ProfilePage.class.getSimpleName();
   private FragmentProfilePageBinding binding;
   private ShopFeedAdapter favoritesAdapter;
   private ShopFeedAdapter visitedAdapter;
@@ -38,18 +36,19 @@ public class ProfilePage extends Fragment {
     binding.rvFavorites.setLayoutManager(new LinearLayoutManager(requireContext()));
     binding.rvVisited.setLayoutManager(new LinearLayoutManager(requireContext()));
     favoritesAdapter = new ShopFeedAdapter((shop, isFavorite) -> {
-      // TODO: 8/11/26 Invoke method in view model to change favorite status.
-      Log.d(TAG, "%1$s clicked; favorite = %2$b".formatted(shop, isFavorite));
+      viewModel.setFavorite(shop, isFavorite);
     });
     visitedAdapter = new ShopFeedAdapter((shop, isFavorite) -> {
-      // TODO: 8/11/26 Invoke method in view model to change favorite status.
-      Log.d(TAG, "%1$s clicked; favorite = %2$b".formatted(shop, isFavorite));
+      viewModel.setFavorite(shop, isFavorite);
     });
 
     binding.rvFavorites.setAdapter(favoritesAdapter);
     binding.rvVisited.setAdapter(visitedAdapter);
-
-
+    viewModel.getProfile().observe(getViewLifecycleOwner(), (profile) -> {
+      binding.textName.setText(profile.getName());
+      favoritesAdapter.setShops(profile.getFavorites());
+      visitedAdapter.setShops(profile.getVisits().stream().map((visit) -> visit.getShop()).toList());
+    });
   }
 
   @Override

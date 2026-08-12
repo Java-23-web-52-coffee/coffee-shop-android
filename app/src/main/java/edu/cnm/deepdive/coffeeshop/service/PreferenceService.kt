@@ -17,9 +17,9 @@ class PreferenceService @Inject constructor(private val preferenceDetailsReposit
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-    suspend fun getPreference(interestId: Long): CompletableFuture<List<Preference>> =
+    fun getPreferences(): CompletableFuture<List<Preference>> =
         scope.future {
-            preferenceDetailsRepository.getPreferenceDetails(interestId)
+            preferenceDetailsRepository.getPreferenceDetails()
             }
 
     suspend fun addPreference(interest: Interest, importance: BigDecimal) =
