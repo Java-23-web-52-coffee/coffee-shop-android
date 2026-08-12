@@ -38,7 +38,7 @@
       android:text="Coffee Shop Name"
       android:textSize="20sp"
       android:textStyle="bold"
-      app:layout_constraintEnd_toStartOf="@id/btnMarkVisited"
+      app:layout_constraintEnd_toStartOf="@id/btnFavorite"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/ivShopImage" />
 
@@ -55,30 +55,37 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="@id/tvShopTitle" />
 
-    <com.google.android.material.button.MaterialButton
-      android:id="@+id/btnMarkVisited"
-      android:layout_width="wrap_content"
+    <!-- Shop Address -->
+    <TextView
+      android:id="@+id/tvShopAddress"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="4dp"
-      android:text="Visited"
-      app:layout_constraintBottom_toBottomOf="@id/tvShopTitle"
-      app:layout_constraintEnd_toStartOf="@id/btnFavorite"
-      app:layout_constraintTop_toTopOf="@id/tvShopTitle" />
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="4dp"
+      android:layout_marginEnd="16dp"
+      android:text="123 Main St, Cityville"
+      android:textColor="?android:attr/textColorSecondary"
+      android:textSize="12sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/tvShopTitle" />
 
-    <!-- Shop Description -->
+    <!-- Shop Description / Offers -->
     <TextView
       android:id="@+id/tvShopDescription"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
-      android:layout_marginTop="6dp"
+      android:layout_marginTop="4dp"
       android:layout_marginEnd="16dp"
-      android:text="This coffee shop offers local brews, cozy seating, and fresh pastries."
+      android:layout_marginBottom="16dp"
+      android:text="Local brews, cozy seating, work/study space..."
       android:textColor="?android:attr/textColorSecondary"
       android:textSize="14sp"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/tvShopTitle" />
+      app:layout_constraintTop_toBottomOf="@id/tvShopAddress" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

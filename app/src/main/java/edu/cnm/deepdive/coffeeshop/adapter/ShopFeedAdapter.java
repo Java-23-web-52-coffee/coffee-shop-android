@@ -15,16 +15,9 @@ public class ShopFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
   private List<Shop> shops = new ArrayList<>();
   private final OnFavoriteClickListener favoriteClickListener;
-  private final OnVisitedClickListener visitedClickListener;
 
   public ShopFeedAdapter(OnFavoriteClickListener listener) {
-    this(listener, null);
-  }
-
-  public ShopFeedAdapter(OnFavoriteClickListener favoriteClickListener,
-      OnVisitedClickListener visitedClickListener) {
-    this.favoriteClickListener = favoriteClickListener;
-    this.visitedClickListener = visitedClickListener;
+    this.favoriteClickListener = listener;
   }
 
   public void setShops(List<Shop> shops) {
@@ -77,21 +70,13 @@ public class ShopFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
           favoriteClickListener.onFavoriteClick(shop, shop.isFavorite());
         }
       });
-      binding.btnMarkVisited.setOnClickListener(_ -> {
-        if (visitedClickListener != null) {
-          visitedClickListener.onVisitedClick(shop);
-        }
-      });
+
+
     }
   }
 
   public interface OnFavoriteClickListener {
 
     void onFavoriteClick(Shop shop, boolean isFavorite);
-  }
-
-  public interface OnVisitedClickListener {
-
-    void onVisitedClick(Shop shop);
   }
 }

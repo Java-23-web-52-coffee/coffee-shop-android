@@ -2,29 +2,27 @@ package edu.cnm.deepdive.coffeeshop.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import android.util.Log;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import androidx.lifecycle.ViewModel;
 import edu.cnm.deepdive.coffeeshop.model.domain.Profile;
 import edu.cnm.deepdive.coffeeshop.model.domain.Shop;
+import edu.cnm.deepdive.coffeeshop.model.domain.Visit;
 import edu.cnm.deepdive.coffeeshop.service.ProfileService;
-import edu.cnm.deepdive.coffeeshop.service.VisitService;
 import jakarta.inject.Inject;
+import java.util.List;
+import java.util.UUID;
 
 @HiltViewModel
 public class ProfileViewModel extends ViewModel {
 
-  private static final String TAG = ProfileViewModel.class.getSimpleName();
   private final ProfileService profileService;
-  private final VisitService visitService;
   private final MutableLiveData<Profile> profile = new MutableLiveData<>();
 
 
 
   @Inject
-  public ProfileViewModel(ProfileService profileService, VisitService visitService) {
+  public ProfileViewModel(ProfileService profileService) {
     this.profileService = profileService;
-    this.visitService = visitService;
     refreshProfile();
   }
 
@@ -41,25 +39,14 @@ public class ProfileViewModel extends ViewModel {
         });
   }
 
-  public void setVisited(Shop shop) {
-    visitService.createVisit(shop).whenComplete((ignored, throwable) -> {
-      if (throwable == null) {
-        refreshProfile();
-      } else {
-        Log.e(TAG, "Unable to save visited shop", throwable);
-      }
-    });
-  }
-
   private void refreshProfile() {
     profileService.getProfile().whenComplete((updatedProfile, throwable) -> {
       if (throwable == null) {
         profile.postValue(updatedProfile);
-      } else {
-        Log.e(TAG, "Unable to load profile", throwable);
       }
     });
   }
 
 }
+
 

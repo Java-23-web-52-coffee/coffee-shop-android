@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import dagger.hilt.android.AndroidEntryPoint;
 import edu.cnm.deepdive.coffeeshop.adapter.ShopFeedAdapter;
 import edu.cnm.deepdive.coffeeshop.databinding.FragmentProfilePageBinding;
+import edu.cnm.deepdive.coffeeshop.model.domain.Profile;
 import edu.cnm.deepdive.coffeeshop.model.domain.Visit;
 import edu.cnm.deepdive.coffeeshop.viewmodel.ProfileViewModel;
 
@@ -25,7 +26,8 @@ public class ProfilePage extends Fragment {
 
   @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
     binding = FragmentProfilePageBinding.inflate(inflater, container, false);
     return binding.getRoot();
   }
@@ -38,21 +40,16 @@ public class ProfilePage extends Fragment {
         new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     );
     binding.rvVisited.setLayoutManager(new LinearLayoutManager(requireContext()));
-    favoritesAdapter = new ShopFeedAdapter(
-        (shop, isFavorite) -> viewModel.setFavorite(shop, isFavorite),
-        shop -> viewModel.setVisited(shop)
-    );
-    visitedAdapter = new ShopFeedAdapter(
-        (shop, isFavorite) -> viewModel.setFavorite(shop, isFavorite),
-        shop -> viewModel.setVisited(shop)
-    );
+    favoritesAdapter = new ShopFeedAdapter((shop, isFavorite) -> {
+      viewModel.setFavorite(shop, isFavorite);
+    });
+    visitedAdapter = new ShopFeedAdapter((shop, isFavorite) -> {
+      viewModel.setFavorite(shop, isFavorite);
+    });
 
     binding.rvFavorites.setAdapter(favoritesAdapter);
     binding.rvVisited.setAdapter(visitedAdapter);
-    viewModel.getProfile().observe(getViewLifecycleOwner(), profile -> {
-      if (profile == null) {
-        return;
-      }
+    viewModel.getProfile().observe(getViewLifecycleOwner(), (profile) -> {
       binding.textName.setText(profile.getName());
       favoritesAdapter.setShops(profile.getFavorites());
       visitedAdapter.setShops(
@@ -65,4 +62,5 @@ public class ProfilePage extends Fragment {
     super.onDestroyView();
     binding = null;
   }
+
 }
