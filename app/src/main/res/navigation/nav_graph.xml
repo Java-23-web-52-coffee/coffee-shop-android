@@ -1,13 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/nav_graph"
-  app:startDestination="@id/signInFragment">
+  app:startDestination="@id/shopFeedFragment">
 
   <fragment
     android:id="@+id/signInFragment"
     android:name="edu.cnm.deepdive.coffeeshop.controller.SignInFragment"
     android:label="@string/sign_in">
+    <action
+      android:id="@+id/action_signInFragment_to_signUpFragment"
+      app:destination="@id/signUpFragment" />
+    <action
+      android:id="@+id/action_signInFragment_to_loggedInFragment"
+      app:destination="@id/loggedInFragment"
+      app:popUpTo="@id/nav_graph"
+      app:popUpToInclusive="true" />
+  </fragment>
+
+  <fragment
+    android:id="@+id/signUpFragment"
+    android:name="edu.cnm.deepdive.coffeeshop.controller.SignUpFragment"
+    android:label="@string/create_account">
+    <action
+      android:id="@+id/action_signUpFragment_to_loggedInFragment"
+      app:destination="@id/loggedInFragment"
+      app:popUpTo="@id/nav_graph"
+      app:popUpToInclusive="true" />
+  </fragment>
+
+  <fragment
+    android:id="@+id/loggedInFragment"
+    android:name="edu.cnm.deepdive.coffeeshop.controller.LoggedInFragment"
+    android:label="@string/signed_in_confirmation">
+    <action
+      android:id="@+id/action_loggedInFragment_to_shopDetailFragment"
+      app:destination="@id/shopFeedFragment" />
+    <action
+      android:id="@+id/action_loggedInFragment_to_profilePage"
+      app:destination="@id/profilePageFragment" />
+    <action
+      android:id="@+id/action_loggedInFragment_to_settingsFragment"
+      app:destination="@id/settingsFragment" />
+    <action
+      android:id="@+id/action_loggedInFragment_to_signInFragment"
+      app:destination="@id/signInFragment"
+      app:popUpTo="@id/nav_graph"
+      app:popUpToInclusive="true" />
+  </fragment>
+
+  <fragment
+    android:id="@+id/profilePageFragment"
+    android:name="edu.cnm.deepdive.coffeeshop.ui.profile.ProfilePage"
+    android:label="@string/profile" />
+
+  <fragment
+    android:id="@+id/shopFeedFragment"
+    android:name="edu.cnm.deepdive.coffeeshop.controller.ShopFeedFragment"
+    android:label="@string/home"
+    tools:layout="@layout/fragment_shop_feed"/>
+
+  <fragment
+    android:id="@+id/settingsFragment"
+    android:name="edu.cnm.deepdive.coffeeshop.controller.SettingsFragment"
+    android:label="@string/settings">
+    <action
+      android:id="@+id/action_settingsFragment_to_loggedInFragment"
+      app:destination="@id/loggedInFragment"
+      app:popUpTo="@id/nav_graph"
+      app:popUpToInclusive="true" />
   </fragment>
 
 </navigation>

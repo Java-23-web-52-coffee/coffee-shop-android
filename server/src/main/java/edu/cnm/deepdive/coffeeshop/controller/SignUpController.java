@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
-@RequestMapping("/sign-up")
+@RequestMapping("/apis/sign-up")
 @Profile("service")
 public class SignUpController {
 

@@ -52,7 +52,6 @@ public class RatingServiceImpl implements RatingService {
         .orElseThrow();
   }
 
-
   @Override
   public RatingDto saveRating(UUID visitId, RatingRequestDto ratingRequestDto, Profile profile) {
     return visitRepository.findById(visitId)

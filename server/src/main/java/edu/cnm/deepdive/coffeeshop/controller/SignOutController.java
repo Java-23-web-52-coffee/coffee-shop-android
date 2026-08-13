@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/sign-out")
+@RequestMapping("/apis/sign-out")
 @Profile("service")
 public class SignOutController {
 

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:fitsSystemWindows="true"
+  android:fillViewport="true">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <!-- Top Profile Card -->
+    <com.google.android.material.card.MaterialCardView
+      android:id="@+id/card_profile_header"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:cardCornerRadius="16dp"
+      app:cardElevation="2dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageButton
+          android:id="@+id/img_profile"
+          android:layout_width="48dp"
+          android:layout_height="48dp"
+          android:src="@drawable/outline_account_circle_24"
+          android:contentDescription="Profile Picture"
+          android:background="?attr/selectableItemBackgroundBorderless"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent" />
+
+
+        <TextView
+          android:id="@+id/text_name"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:text="Jazzmine"
+          android:textSize="18sp"
+          android:textStyle="bold"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/img_profile"
+          app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+          android:id="@+id/text_email"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:text="jazzscott76@gmail.com"
+          android:textColor="?android:attr/textColorSecondary"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/img_profile"
+          app:layout_constraintTop_toBottomOf="@id/text_name" />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Favorites Section Card -->
+    <com.google.android.material.card.MaterialCardView
+      android:id="@+id/card_favorites"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      app:cardCornerRadius="16dp"
+      app:cardElevation="2dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/card_profile_header">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="12dp"
+          android:text="Favorites"
+          android:textSize="18sp"
+          android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/rv_favorites"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:nestedScrollingEnabled="false"
+          tools:itemCount="3"
+          tools:listitem="@layout/item_favorite_shop" />
+
+      </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Visited Section Card -->
+    <com.google.android.material.card.MaterialCardView
+      android:id="@+id/card_visited"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      app:cardCornerRadius="16dp"
+      app:cardElevation="2dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/card_favorites">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="12dp"
+          android:text="Visited"
+          android:textSize="18sp"
+          android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/rv_visited"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:nestedScrollingEnabled="false"
+          tools:itemCount="3"
+          tools:listitem="@layout/item_favorite_shop" />
+
+        <!-- Visited RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/rvVisited"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+          tools:listitem="@layout/item_favorite_shop"
+          tools:itemCount="3" />
+
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/rvFavorites"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:nestedScrollingEnabled="true"
+          tools:listitem="@layout/item_favorite_shop"
+          tools:itemCount="3" />
+
+
+      </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
