@@ -12,14 +12,14 @@ import jakarta.inject.Inject
 class FavoriteViewModel @Inject constructor(private val favoriteService: FavoriteService) :
     ViewModel() {
 
-    init {
-        fetchFavorites()
-    }
-
-    private val _favorites = MutableLiveData<List<Shop>>()
+    private val _favorites = MutableLiveData<List<Shop>>(emptyList())
     val favorites: LiveData<List<Shop>> = _favorites
     private val _error: MutableLiveData<Throwable> = MutableLiveData()
     val error: LiveData<Throwable> = _error
+
+    init {
+        fetchFavorites()
+    }
 
     fun fetchFavorites() {
         favoriteService.getFavorites().whenComplete { shops, throwable ->
@@ -33,11 +33,7 @@ class FavoriteViewModel @Inject constructor(private val favoriteService: Favorit
 
     fun addFavorite(shop: Shop) {
         favoriteService.addFavorite(shop)
-            .thenAccept { addedShop ->
-                val currentList = _favorites.value?.toMutableList() ?: mutableListOf()
-                currentList.add(addedShop)
-                _favorites.postValue(currentList)
-            }
+            .thenRun(::fetchFavorites)
             .exceptionally { throwable ->
                 _error.postValue(throwable)
                 null
@@ -46,11 +42,7 @@ class FavoriteViewModel @Inject constructor(private val favoriteService: Favorit
 
     fun removeFavorite(shop: Shop) {
         favoriteService.removeFavorite(shop)
-            .thenRun {
-                val currentList = _favorites.value?.toMutableList() ?: mutableListOf()
-                currentList.remove(shop)
-                _favorites.postValue(currentList)
-            }
+            .thenRun(::fetchFavorites)
             .exceptionally { throwable ->
                 _error.postValue(throwable)
                 null
@@ -58,4 +50,3 @@ class FavoriteViewModel @Inject constructor(private val favoriteService: Favorit
     }
 
 }
-

@@ -2,7 +2,6 @@ package edu.cnm.deepdive.coffeeshop.controller;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import dagger.hilt.android.AndroidEntryPoint;
 import edu.cnm.deepdive.coffeeshop.R;
 import edu.cnm.deepdive.coffeeshop.adapter.ShopFeedAdapter;
+import edu.cnm.deepdive.coffeeshop.viewmodel.FavoriteViewModel;
 import edu.cnm.deepdive.coffeeshop.viewmodel.ShopViewModel;
 import edu.cnm.deepdive.coffeeshop.databinding.FragmentShopFeedBinding;
 import java.util.List;
@@ -25,10 +25,9 @@ import java.util.Map;
 @AndroidEntryPoint
 public class ShopFeedFragment extends Fragment {
 
-  private static final String TAG = ShopFeedFragment.class.getSimpleName();
-
   private FragmentShopFeedBinding binding;
   private ShopViewModel shopViewModel;
+  private FavoriteViewModel favoriteViewModel;
   private ShopFeedAdapter adapter;
 
   @Nullable
@@ -37,8 +36,11 @@ public class ShopFeedFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     binding = FragmentShopFeedBinding.inflate(inflater, container, false);
     adapter = new ShopFeedAdapter((shop, isFavorite) -> {
-      // TODO: 8/11/26 Invoke method in view model to change favorite status.
-      Log.d(TAG, "%1$s clicked; favorite = %2$b".formatted(shop, isFavorite));
+      if (isFavorite) {
+        favoriteViewModel.addFavorite(shop);
+      } else {
+        favoriteViewModel.removeFavorite(shop);
+      }
     });
     binding.rvShopList.setAdapter(adapter);
     return binding.getRoot();
@@ -49,6 +51,7 @@ public class ShopFeedFragment extends Fragment {
     super.onViewCreated(view, savedInstanceState);
 
     shopViewModel = new ViewModelProvider(this).get(ShopViewModel.class);
+    favoriteViewModel = new ViewModelProvider(this).get(FavoriteViewModel.class);
     shopViewModel.getShops()
         .observe(getViewLifecycleOwner(), adapter::setShops);
   }

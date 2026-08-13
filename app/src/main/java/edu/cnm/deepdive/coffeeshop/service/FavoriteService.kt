@@ -15,18 +15,18 @@ class FavoriteService @Inject constructor(private val favoriteRepository: Favori
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-    suspend fun addFavorite(shop: Shop): CompletableFuture<Shop> =
+    fun addFavorite(shop: Shop): CompletableFuture<Shop> =
         scope.future {
             favoriteRepository.addFavorite(shop)
         }
 
-    suspend fun removeFavorite(shop: Shop): CompletableFuture<Void?> =
+    fun removeFavorite(shop: Shop): CompletableFuture<Void?> =
         scope.future {
             favoriteRepository.removeFavorite(shop)
             null
         }
 
-    suspend fun getFavorites(): CompletableFuture<List<Shop>> =
+    fun getFavorites(): CompletableFuture<List<Shop>> =
         scope.future {
             favoriteRepository.getFavorites()
         }
