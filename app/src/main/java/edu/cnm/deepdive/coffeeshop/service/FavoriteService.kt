@@ -11,22 +11,23 @@ import kotlinx.coroutines.future.future
 import java.util.concurrent.CompletableFuture
 
 @Singleton
-class FavoriteService @Inject constructor(private val favoriteRepository: FavoriteRepository){
+class FavoriteService @Inject constructor(private val favoriteRepository: FavoriteRepository) {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-    suspend fun addFavorite(shop: Shop)=
+    suspend fun addFavorite(shop: Shop): CompletableFuture<Shop> =
         scope.future {
             favoriteRepository.addFavorite(shop)
         }
 
-    suspend fun removeFavorite(shop: Shop)=
+    suspend fun removeFavorite(shop: Shop): CompletableFuture<Void?> =
         scope.future {
             favoriteRepository.removeFavorite(shop)
+            null
         }
 
     suspend fun getFavorites(): CompletableFuture<List<Shop>> =
         scope.future {
-        favoriteRepository.getFavorites()
-    }
+            favoriteRepository.getFavorites()
+        }
 }

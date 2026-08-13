@@ -48,7 +48,7 @@ public class ShopFeedFragment extends Fragment {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    shopViewModel = new ViewModelProvider(requireActivity()).get(ShopViewModel.class);
+    shopViewModel = new ViewModelProvider(this).get(ShopViewModel.class);
     shopViewModel.getShops()
         .observe(getViewLifecycleOwner(), adapter::setShops);
   }
