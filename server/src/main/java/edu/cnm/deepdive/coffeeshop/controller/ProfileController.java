@@ -24,14 +24,16 @@ public class ProfileController implements ProfileApi {
 
   @Override
   public ResponseEntity<PublicProfileDto> getMyProfile() {
-    return ResponseEntity.ok(profileService.getProfile(contextProfileService.getContextProfile().getId()));
+    return ResponseEntity.ok(
+        profileService.getProfile(contextProfileService.getContextProfile().getId()));
   }
 
   @Override
   public ResponseEntity<PublicProfileDto> updateMyProfile(
       ProfileUpdateRequestDto profileUpdateRequestDto) {
     return ResponseEntity.ok(
-        profileService.updateProfile(contextProfileService.getContextProfile().getId(), profileUpdateRequestDto));
+        profileService.updateProfile(contextProfileService.getContextProfile().getId(),
+            profileUpdateRequestDto));
   }
 
 }

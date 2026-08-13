@@ -22,7 +22,8 @@ public class VisitServiceImpl implements VisitService {
   private final Converter<Visit, VisitDto> outputConverter;
 
   public VisitServiceImpl(VisitRepository visitRepository, ProfileRepository profileRepository,
-      Converter<VisitRequestDto, Visit> inputConverter, Converter<Visit, VisitDto> outputConverter) {
+      Converter<VisitRequestDto, Visit> inputConverter,
+      Converter<Visit, VisitDto> outputConverter) {
     this.visitRepository = visitRepository;
     this.profileRepository = profileRepository;
     this.inputConverter = inputConverter;
