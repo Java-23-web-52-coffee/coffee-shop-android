@@ -1,11 +1,14 @@
 package edu.cnm.deepdive.coffeeshop.di;
 
+import android.content.Context;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory;
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import dagger.hilt.components.SingletonComponent;
+import edu.cnm.deepdive.coffeeshop.R;
 import edu.cnm.deepdive.coffeeshop.repository.SessionManager;
 import edu.cnm.deepdive.coffeeshop.service.openapi.AuthApi;
 import edu.cnm.deepdive.coffeeshop.service.openapi.FavoriteApi;
@@ -29,9 +32,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 @InstallIn(SingletonComponent.class)
 public final class NetworkModule {
 
-  // TODO Point at the deployed server URL; this targets the emulator's host loopback.
-  private static final String BASE_URL = "http://10.46.2.22:8080/";
-
   private NetworkModule() {
   }
 
@@ -49,7 +49,7 @@ public final class NetworkModule {
 
   @Provides
   @Singleton
-  static OkHttpClient provideOkHttpClient(SessionManager sessionManager) {
+  static OkHttpClient provideOkHttpClient(@ApplicationContext Context context, SessionManager sessionManager) {
     Interceptor authInterceptor = (chain) -> {
       Request original = chain.request();
       String token = sessionManager.getToken();
@@ -59,7 +59,7 @@ public final class NetworkModule {
       return chain.proceed(request);
     };
     HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-    logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+    logging.setLevel(HttpLoggingInterceptor.Level.valueOf(context.getString(R.string.log_level)));
     return new OkHttpClient.Builder()
         .addInterceptor(authInterceptor)
         .addInterceptor(logging)
@@ -68,9 +68,9 @@ public final class NetworkModule {
 
   @Provides
   @Singleton
-  static Retrofit provideRetrofit(OkHttpClient client, Moshi moshi) {
+  static Retrofit provideRetrofit(@ApplicationContext Context context, OkHttpClient client, Moshi moshi) {
     return new Retrofit.Builder()
-        .baseUrl(BASE_URL)
+        .baseUrl(context.getString(R.string.base_url))
         .client(client)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build();

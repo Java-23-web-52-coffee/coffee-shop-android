@@ -16,16 +16,22 @@ import jakarta.inject.Inject;
 public class ShopViewModel extends ViewModel {
 
   private final ShopService shopService;
-  private final LiveData<List<Shop>> shops;
+  private final MutableLiveData<List<Shop>> shops;
 
   @Inject
   public ShopViewModel (ShopService shopService, VisitService visitService) {
     this.shopService = shopService;
-    shops = new MutableLiveData<>(buildTestShops()); // FIXME: 8/11/26 Replace with actual data from repository.
+    shops = new MutableLiveData<>();
+    fetchAllShops();
   }
 
   public LiveData<List<Shop>> getShops() {
     return shops;
+  }
+
+  public void fetchAllShops() {
+    shopService.getShops()
+        .thenAccept(shops::postValue);
   }
 
   private static List<Shop> buildTestShops() {
@@ -34,31 +40,31 @@ public class ShopViewModel extends ViewModel {
             UUID.randomUUID(),
             "Average coffee shop",
             null, null, null, null, null, null,
-            true, R.drawable.coffee
+            true
 
         ), new Shop(
             UUID.randomUUID(),
             "Espresso Express",
             null, null, null, null, null, null,
-            false, R.drawable.coffee_shop
+            false
         ),
         new Shop(
             UUID.randomUUID(),
             "Bean & Brew",
             null, null, null, null, null, null,
-            true, R.drawable.coffee_shop_3
+            true
         ),
         new Shop(
             UUID.randomUUID(),
             "Roast & Co.",
             null, null, null, null, null, null,
-            false, R.drawable.coffee_shop_4
+            false
         ),
         new Shop(
             UUID.randomUUID(),
             "The Daily Grind",
             null, null, null, null, null, null,
-            true, R.drawable.coffee_shop
+            true
         )
     );
   }

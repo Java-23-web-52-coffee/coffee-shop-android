@@ -56,8 +56,11 @@ public class ShopFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void bind(Shop shop) {
       binding.tvShopTitle.setText(shop.getName());
       binding.tvShopDescription.setText(shop.getAddress() == null ? "" : shop.getAddress());
-      binding.ivShopImage.setImageResource(
-          shop.getImageResourceId() != 0 ? shop.getImageResourceId() : R.drawable.coffee_shop);
+      if(shop.getImageUrl() != null) {
+        // TODO: 8/13/26 Use coil or glide to load the reference image.
+      }else {
+        binding.ivShopImage.setImageResource(R.drawable.coffee_shop);
+      }
       binding.btnFavorite.setImageResource(shop.isFavorite() ? android.R.drawable.btn_star_big_on
           : android.R.drawable.btn_star_big_off);
       // Favorite button toggle

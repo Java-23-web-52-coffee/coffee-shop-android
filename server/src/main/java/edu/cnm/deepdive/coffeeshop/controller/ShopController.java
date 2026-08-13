@@ -40,7 +40,8 @@ public class ShopController implements ShopApi {
     return ResponseEntity.ok(shopService.getAllShops());
   }
 
-  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(path = ShopApi.PATH_LIST_SHOPS, consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ShopDto> postShop(@RequestBody Shop shop) {
     return ResponseEntity.ok(shopService.saveShop(shop, contextProfileService.getContextProfile()));
   }

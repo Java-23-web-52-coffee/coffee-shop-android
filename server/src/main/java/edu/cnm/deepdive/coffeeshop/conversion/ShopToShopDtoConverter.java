@@ -18,9 +18,9 @@ public class ShopToShopDtoConverter implements Converter<Shop, ShopDto> {
     dto.setAddress(source.getAddress());
     dto.setPhone(source.getPhone());
     dto.setHours(source.getHours());
-    dto.setImageUrl(URI.create(source.getImageUrl()));
-    dto.setLat(source.getLat().doubleValue());
-    dto.setLng(source.getLng().doubleValue());
+    dto.setImageUrl(source.getImageUrl() == null ? null : URI.create(source.getImageUrl()));
+    dto.setLat(source.getLat() == null ? null : source.getLat().doubleValue());
+    dto.setLng(source.getLng() == null ? null : source.getLng().doubleValue());
     return dto;
   }
 
