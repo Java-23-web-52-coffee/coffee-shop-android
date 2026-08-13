@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
 import edu.cnm.deepdive.coffeeshop.R;
 import edu.cnm.deepdive.coffeeshop.databinding.ItemShopCardBinding;
 import edu.cnm.deepdive.coffeeshop.model.domain.Shop;
@@ -56,9 +57,14 @@ public class ShopFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void bind(Shop shop) {
       binding.tvShopTitle.setText(shop.getName());
       binding.tvShopDescription.setText(shop.getAddress() == null ? "" : shop.getAddress());
-      if(shop.getImageUrl() != null) {
-        // TODO: 8/13/26 Use coil or glide to load the reference image.
-      }else {
+      if (shop.getImageUrl() != null && !shop.getImageUrl().toString().isBlank()) {
+        Glide.with(binding.ivShopImage)
+            .load(shop.getImageUrl().toString())
+            .placeholder(R.drawable.coffee_shop)
+            .error(R.drawable.coffee_shop)
+            .fallback(R.drawable.coffee_shop)
+            .into(binding.ivShopImage);
+      } else {
         binding.ivShopImage.setImageResource(R.drawable.coffee_shop);
       }
       binding.btnFavorite.setImageResource(shop.isFavorite() ? android.R.drawable.btn_star_big_on

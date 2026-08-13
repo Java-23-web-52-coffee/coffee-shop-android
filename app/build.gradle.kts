@@ -169,6 +169,9 @@ dependencies {
     implementation(libs.constraint.layout)
     implementation(libs.recycler.view)
 
+    // Image loading and caching
+    implementation(libs.glide)
+
     // Navigation framework libraries
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
