@@ -41,6 +41,7 @@ public class ShopFeedFragment extends Fragment {
       } else {
         favoriteViewModel.removeFavorite(shop);
       }
+      shopViewModel.fetchAllShops();
     });
     binding.rvShopList.setAdapter(adapter);
     return binding.getRoot();
@@ -49,7 +50,6 @@ public class ShopFeedFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-
     shopViewModel = new ViewModelProvider(this).get(ShopViewModel.class);
     favoriteViewModel = new ViewModelProvider(this).get(FavoriteViewModel.class);
     shopViewModel.getShops()

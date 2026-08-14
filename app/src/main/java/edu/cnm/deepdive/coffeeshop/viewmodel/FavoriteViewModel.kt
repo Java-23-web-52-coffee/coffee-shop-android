@@ -22,13 +22,19 @@ class FavoriteViewModel @Inject constructor(private val favoriteService: Favorit
     }
 
     fun fetchFavorites() {
-        favoriteService.getFavorites().whenComplete { shops, throwable ->
-            if (throwable != null) {
-                _error.postValue(throwable)
-            } else if (shops != null) {
-                _favorites.postValue(shops)
+        favoriteService.getFavorites()
+            .thenAccept { _favorites.postValue(it) }
+            .exceptionally {
+                _error.postValue(it)
+                null
             }
-        }
+//            .whenComplete { shops, throwable ->
+//            if (throwable != null) {
+//                _error.postValue(throwable)
+//            } else if (shops != null) {
+//                _favorites.postValue(shops)
+//            }
+//        }
     }
 
     fun addFavorite(shop: Shop) {
