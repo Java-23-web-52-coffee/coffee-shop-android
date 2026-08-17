@@ -39,31 +39,31 @@ public class ShopViewModel extends ViewModel {
         new Shop(
             UUID.randomUUID(),
             "Average coffee shop",
-            null, null, null, null, null, null, List.of(),
+            null, null, null, null, null, null,
             true
 
         ), new Shop(
             UUID.randomUUID(),
             "Espresso Express",
-            null, null, null, null, null, null, List.of(),
+            null, null, null, null, null, null,
             false
         ),
         new Shop(
             UUID.randomUUID(),
             "Bean & Brew",
-            null, null, null, null, null, null, List.of(),
+            null, null, null, null, null, null,
             true
         ),
         new Shop(
             UUID.randomUUID(),
             "Roast & Co.",
-            null, null, null, null, null, null, List.of(),
+            null, null, null, null, null, null,
             false
         ),
         new Shop(
             UUID.randomUUID(),
             "The Daily Grind",
-            null, null, null, null, null, null, List.of(),
+            null, null, null, null, null, null,
             true
         )
     );

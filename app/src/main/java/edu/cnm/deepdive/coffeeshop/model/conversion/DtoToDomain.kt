@@ -13,7 +13,6 @@ import edu.cnm.deepdive.coffeeshop.model.dto.openapi.ShopDto
         lng = this.lng,
         phone = this.phone,
         imageUrl = this.imageUrl,
-        tags = this.interests.orEmpty().map { it.category },
     )
 
 }
