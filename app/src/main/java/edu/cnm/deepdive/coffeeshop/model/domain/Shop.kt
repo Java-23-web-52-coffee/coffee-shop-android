@@ -12,6 +12,6 @@ data class Shop (
     val lng: Double? = null,
     val phone: String? = null,
     val imageUrl: URI? = null,
+    val tags: List<String> = emptyList(),
     var isFavorite: Boolean = false,
 )
-

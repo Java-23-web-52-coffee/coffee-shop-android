@@ -9,6 +9,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
@@ -53,6 +55,11 @@ public class Shop {
 
   @Column(name = "image_url", length = 255)
   private String imageUrl;
+
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(name = "shop_interest", joinColumns = @JoinColumn(name = "shop_id"),
+      inverseJoinColumns = @JoinColumn(name = "interest_id"))
+  private Set<Interest> interests = new LinkedHashSet<>();
 
   @JsonIgnore
   @OneToMany(mappedBy = "shop", fetch = FetchType.LAZY)
@@ -125,6 +132,14 @@ public class Shop {
 
   public void setImageUrl(String imageUrl) {
     this.imageUrl = imageUrl;
+  }
+
+  public Set<Interest> getInterests() {
+    return interests;
+  }
+
+  public void setInterests(Set<Interest> interests) {
+    this.interests = interests;
   }
 
   public Set<Visit> getVisits() {
