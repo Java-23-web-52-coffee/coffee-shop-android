@@ -113,6 +113,13 @@ public class ShopFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
       } else {
         binding.textPreferences.setVisibility(View.GONE);
       }
+      if (!preferences.isEmpty()) {
+        String formattedPreferences = String.join(" • ", preferences);
+        binding.textPreferences.setText(formattedPreferences);
+        binding.textPreferences.setVisibility(View.VISIBLE);
+      } else {
+        binding.textPreferences.setVisibility(View.GONE);
+      }
     }
 
   }

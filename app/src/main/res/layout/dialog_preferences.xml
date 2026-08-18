@@ -142,35 +142,35 @@
       <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroupAmenities"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.chip.Chip
-          android:id="@+id/chipPatio"
-          style="@style/Widget.MaterialComponents.Chip.Filter"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Outdoor Patio" />
+        android:layout_height="105dp">
 
         <com.google.android.material.chip.Chip
           android:id="@+id/chipPetFriendly"
           style="@style/Widget.MaterialComponents.Chip.Filter"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Pet Friendly" />
+          android:text="Pet Friendly"/>
 
         <com.google.android.material.chip.Chip
           android:id="@+id/chipDriveThru"
           style="@style/Widget.MaterialComponents.Chip.Filter"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Drive-Thru" />
+          android:text="Drive-Thru"/>
 
         <com.google.android.material.chip.Chip
           android:id="@+id/chipPourOver"
           style="@style/Widget.MaterialComponents.Chip.Filter"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Artisan Pour-Over" />
+          android:text="Artisan Pour-Over"/>
+
+        <com.google.android.material.chip.Chip
+          android:id="@+id/chipPatio"
+          style="@style/Widget.MaterialComponents.Chip.Filter"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Outdoor Patio"/>
 
       </com.google.android.material.chip.ChipGroup>
 
@@ -184,5 +184,23 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="16dp"
     android:text="Apply Filters" />
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="16dp">
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/btnClearFilters"
+      style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:layout_marginEnd="8dp"
+      android:text="Clear Filters" />
+
+
+  </LinearLayout>
 
 </LinearLayout>
