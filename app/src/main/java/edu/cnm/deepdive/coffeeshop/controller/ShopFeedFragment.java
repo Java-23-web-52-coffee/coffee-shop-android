@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import edu.cnm.deepdive.coffeeshop.R;
 import edu.cnm.deepdive.coffeeshop.adapter.ShopFeedAdapter;
 import edu.cnm.deepdive.coffeeshop.model.domain.Shop;
+import edu.cnm.deepdive.coffeeshop.ui.PreferenceBottomSheetDialogFragment;
 import edu.cnm.deepdive.coffeeshop.viewmodel.FavoriteViewModel;
 import edu.cnm.deepdive.coffeeshop.viewmodel.ShopViewModel;
 import edu.cnm.deepdive.coffeeshop.databinding.FragmentShopFeedBinding;
@@ -82,6 +83,38 @@ public class ShopFeedFragment extends Fragment {
         .thenComparing(shop -> ratings.getOrDefault(shop.getId(), 0), Comparator.reverseOrder()));
     adapter.setRatings(ratings);
     adapter.setShops(currentShops);
+
+  binding.chipPreferences.setOnClickListener(v -> {
+    PreferenceBottomSheetDialogFragment dialog = new PreferenceBottomSheetDialogFragment();
+    dialog.show(getChildFragmentManager(), "PreferenceDialog");
+  });
+    for (Shop shop : shops) {
+      List<String> prefs = new ArrayList<>();
+      prefs.add("Oat / Almond Milk");
+      shop.getName();
+      if (shop.getName().contains("Amalie")) {
+        prefs.add("Work / Study Friendly");
+        prefs.add("Outdoor Patio");
+        prefs.add("Comfy Seating");
+      } else if (shop.getName().contains("Zendo")) {
+        prefs.add("Pet Friendly");
+        prefs.add("Outdoor Patio");
+        prefs.add("Vegan Options");
+      } else if (shop.getName().contains("Little Bear")) {
+        prefs.add("House-Roasted Beans");
+        prefs.add("Strong Wi-Fi");
+        prefs.add("Artisan Pour-Over");
+      } else if (shop.getName().contains("Bike In")) {
+        prefs.add("Outdoor Patio");
+        prefs.add("Pet Friendly");
+        prefs.add("Quiet Environment");
+      } else {
+        prefs.add("Strong Wi-Fi");
+        prefs.add("Power Outlets");
+      }
+
+      shop.setPreferences(prefs);
+    }
   }
 
   private void loadRatings() {
@@ -166,6 +199,7 @@ public class ShopFeedFragment extends Fragment {
         imgShop = itemView.findViewById(R.id.image_shop);
       }
     }
+
   }
 
 
