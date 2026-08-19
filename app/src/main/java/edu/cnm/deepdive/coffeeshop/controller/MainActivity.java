@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
       if (navigateToSettings) {
         // Clear flag so it only redirects once
-        prefs.edit().putBoolean("NAVIGATE_TO_SETTINGS", false).apply();
+        prefs.edit().putBoolean("NAVIGATE_TO_SETTINGS", true).apply();
 
         // Navigate directly back to Settings Fragment
         navController.navigate(R.id.settingsFragment);
